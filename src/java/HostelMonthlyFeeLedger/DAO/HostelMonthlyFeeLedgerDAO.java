@@ -17,5 +17,7 @@ public interface HostelMonthlyFeeLedgerDAO {
     public HostelMonthlyFeeLedgerBean searchStudentMonthlyFeeLedgerByAdmissionNo(HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean);
     public HostelMonthlyFeeLedgerBean searchStudentMonthlyFeeLedgerByStudentId(HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean);
     public int updateHostelMonthlyFeeLedger(HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean);
-   
+    public int findArrearsAmount(int STUDENT_ID);
+    public int insertHostelMonthlyFeeLedger(HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean);
+            
 }

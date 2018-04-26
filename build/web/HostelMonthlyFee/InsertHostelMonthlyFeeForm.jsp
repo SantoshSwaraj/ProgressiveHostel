@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="HostelMonthlyFeeLedger.DAO.HostelMonthlyFeeLedgerDAOImpl"%>
+<%@page import="HostelMonthlyFeeLedger.DAO.HostelMonthlyFeeLedgerDAO"%>
 <%@page import="ClassHostelMonthlyFee.Bean.ClassHostelMonthlyFeeBean"%>
 <%@page import="ClassHostelMonthlyFee.DAO.ClassHostelMonthlyFeeDAOImpl"%>
 <%@page import="ClassHostelMonthlyFee.DAO.ClassHostelMonthlyFeeDAO"%>
@@ -105,9 +107,9 @@
                         <!-- widget content -->
                         <div class="widget-body no-padding">
                             <!--form starts-->
-                            <form  id="jvalidate1" role="form" class="form-horizontal" action="/ProgressiveHostel/UpdateHostelMonthlyFeeLedger" method="post" autocomplete="off">
+                            <form  id="jvalidate1" role="form" class="form-horizontal" action="/ProgressiveHostel/InsertHostelMonthlyFeeLedger" method="post" autocomplete="off"> 
                                 <div class="form-group">
-                                    <div class="container" id="messageContainerStudentParentDetails" style="margin-left: -32px;">
+                                    <div class="container" id="messageContainerStudentParentDetails" style="margin-left: -32px;"> 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <%@include file="/IncludeFile/message.jsp"%> 
@@ -196,7 +198,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label>&nbsp;Arrears Amount</label>
-                                        <input type="text" class="form-control" placeholder="" name="ARREARS_AMT" id="ARREARS_AMT" value="<%=hostelMonthlyFeeLedgerBean.getBALANCE_AMT()%>">
+                                        <%
+                                           HostelMonthlyFeeLedgerDAO hostelMonthlyFeeLedgerDAO = new HostelMonthlyFeeLedgerDAOImpl();
+                                           int BALANCE_AMT = hostelMonthlyFeeLedgerDAO.findArrearsAmount(studentMasterBean.getSTUDENT_ID());
+                                        %>
+                                        <input type="text" class="form-control" placeholder="" name="ARREARS_AMT" id="ARREARS_AMT" value="<%=BALANCE_AMT%>">
                                         <span class="help-block"></span>
                                     </div> 
                                 </div>
@@ -204,7 +210,7 @@
                                 <div class="form-group">
                                     <div class="col-md-6">
                                         <label>&nbsp;Total To Pay</label>
-                                        <input type="text" class="form-control" placeholder="" name="TOTAL_TO_PAY" id="TOTAL_TO_PAY" value="">
+                                        <input type="text" class="form-control" placeholder="" name="TOTAL_TO_PAY" id="TOTAL_TO_PAY" value="<%=classHostelMonthlyFeeBean.getFEE() + BALANCE_AMT%>">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="col-md-6">

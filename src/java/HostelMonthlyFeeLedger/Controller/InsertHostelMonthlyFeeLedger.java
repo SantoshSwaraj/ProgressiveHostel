@@ -21,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author mishra
  */
-@WebServlet(name = "SearchStudentMonthlyFeeLedger", urlPatterns = {"/SearchStudentMonthlyFeeLedger"})
-public class SearchStudentMonthlyFeeLedger extends HttpServlet {
+@WebServlet(name = "InsertHostelMonthlyFeeLedger", urlPatterns = {"/InsertHostelMonthlyFeeLedger"})
+public class InsertHostelMonthlyFeeLedger extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,41 +38,36 @@ public class SearchStudentMonthlyFeeLedger extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
+        HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean = new HostelMonthlyFeeLedgerBean();
         try {
-            HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean = new HostelMonthlyFeeLedgerBean();
-            HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBeanRecv = new HostelMonthlyFeeLedgerBean();
-            HostelMonthlyFeeLedgerDAO hostelMonthlyFeeLedgerDAO = new HostelMonthlyFeeLedgerDAOImpl();
-            String ADMISSION_NO_OR_STUDENT_ID = request.getParameter("ADMISSION_NO_OR_STUDENT_ID");
-            if (ADMISSION_NO_OR_STUDENT_ID.contains("-")) {
-                hostelMonthlyFeeLedgerBean.setADMISSION_NO(request.getParameter("ADMISSION_NO_OR_STUDENT_ID"));
-                hostelMonthlyFeeLedgerBean.setBILL_MONTH_ID(Integer.parseInt(request.getParameter("BILL_MONTH_ID")));
-                hostelMonthlyFeeLedgerBean.setBILL_YEAR(request.getParameter("BILL_YEAR"));
-                hostelMonthlyFeeLedgerBeanRecv = hostelMonthlyFeeLedgerDAO.searchStudentMonthlyFeeLedgerByAdmissionNo(hostelMonthlyFeeLedgerBean);
-                
-            } else {
-                hostelMonthlyFeeLedgerBean.setSTUDENT_ID(Integer.parseInt(request.getParameter("ADMISSION_NO_OR_STUDENT_ID")));
-                hostelMonthlyFeeLedgerBean.setBILL_MONTH_ID(Integer.parseInt(request.getParameter("BILL_MONTH_ID")));
-                hostelMonthlyFeeLedgerBean.setBILL_YEAR(request.getParameter("BILL_YEAR"));
-                hostelMonthlyFeeLedgerBeanRecv = hostelMonthlyFeeLedgerDAO.searchStudentMonthlyFeeLedgerByStudentId(hostelMonthlyFeeLedgerBean);
-            }
-                    
-            if(hostelMonthlyFeeLedgerBeanRecv.getHOSTEL_MONTHLY_FEE_LEDGER_ID()== null){ 
-                /*============== Insert Hostel Monthly Fee Details, Since Entry for that month Do Not Exist ======*/
-                session.setAttribute("HostelMonthlyFeeLedgerBean", hostelMonthlyFeeLedgerBean);
-                response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/InsertHostelMonthlyFeeForm.jsp");
-            }
-            else if (hostelMonthlyFeeLedgerBeanRecv.getSTUDENT_ID() > 0 && hostelMonthlyFeeLedgerBeanRecv.getFLAG() == 0) {
-                /*============== Update Hostel Monthly Fee Details, Since Entry for that month Exist due to OneTimeFee ======*/
-                session.setAttribute("HostelMonthlyFeeLedgerBean", hostelMonthlyFeeLedgerBeanRecv);
-                response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/UpdateHostelMonthlyFeeForm.jsp");
-            } else if (hostelMonthlyFeeLedgerBeanRecv.getSTUDENT_ID() > 0 && hostelMonthlyFeeLedgerBeanRecv.getFLAG() == 1) {
-                /*======Msg Back to Hostel Monthly Fee Form as Entry for that month already Exists======== */
-                session.setAttribute("wmsg", "Fee Already Submitted for Month :" + hostelMonthlyFeeLedgerBean.getBILL_MONTH_ID());
-                response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp");
-            } 
+            hostelMonthlyFeeLedgerBean.setSTUDENT_ID(Integer.parseInt(request.getParameter("STUDENT_ID")));
+            hostelMonthlyFeeLedgerBean.setADMISSION_NO(request.getParameter("ADMISSION_NO"));
+            hostelMonthlyFeeLedgerBean.setCLASS_ID(Integer.parseInt(request.getParameter("CLASS_ID")));
+            hostelMonthlyFeeLedgerBean.setSECTION_ID(Integer.parseInt(request.getParameter("SECTION_ID")));
+            hostelMonthlyFeeLedgerBean.setBILL_MONTH_ID(Integer.parseInt(request.getParameter("BILL_MONTH_ID")));
+            hostelMonthlyFeeLedgerBean.setBILL_YEAR(request.getParameter(("BILL_YEAR")));
+            hostelMonthlyFeeLedgerBean.setCURRENT_MONTH_FEE(Integer.parseInt(request.getParameter("CURRENT_MONTH_FEE")));
+            hostelMonthlyFeeLedgerBean.setARREARS_AMT(Integer.parseInt(request.getParameter("ARREARS_AMT")));
+            hostelMonthlyFeeLedgerBean.setTOTAL_TO_PAY(Integer.parseInt(request.getParameter("TOTAL_TO_PAY")));
+            hostelMonthlyFeeLedgerBean.setTOTAL_PAID_AMT(Integer.parseInt(request.getParameter("TOTAL_PAID_AMT")));
+            hostelMonthlyFeeLedgerBean.setBALANCE_AMT(Integer.parseInt(request.getParameter("TOTAL_TO_PAY")) - Integer.parseInt(request.getParameter("TOTAL_PAID_AMT")));
 
+            hostelMonthlyFeeLedgerBean.setENTRY_ID((Integer) session.getAttribute("EMPLOYEE_ID"));
+            hostelMonthlyFeeLedgerBean.setFLAG(1);
+
+            HostelMonthlyFeeLedgerDAO hostelMonthlyFeeLedgerDAO = new HostelMonthlyFeeLedgerDAOImpl();
+            int i = hostelMonthlyFeeLedgerDAO.insertHostelMonthlyFeeLedger(hostelMonthlyFeeLedgerBean);
+
+            if (i > 0) {
+                session.setAttribute("msg", "Fee Paid For Month : " + hostelMonthlyFeeLedgerBean.getBILL_MONTH_ID());
+                response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp");
+
+            } else {
+                session.setAttribute("wmsg", "Unable to Pay Fee For Month : " + hostelMonthlyFeeLedgerBean.getBILL_MONTH_ID());
+                response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp");
+            }
         } catch (Exception e) {
-            session.setAttribute("wmsg", "Something went wrong.. Please Contact Your Service Provider");
+            session.setAttribute("msg", "Unable to Pay Fee For Month : " + hostelMonthlyFeeLedgerBean.getBILL_MONTH_ID() + "Try Again..");
             response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp");
         }
     }

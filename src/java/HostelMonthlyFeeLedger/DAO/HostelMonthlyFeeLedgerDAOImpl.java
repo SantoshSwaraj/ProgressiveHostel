@@ -228,4 +228,91 @@ public class HostelMonthlyFeeLedgerDAOImpl implements HostelMonthlyFeeLedgerDAO 
         return hostelMonthlyFeeLedgerBean1;
     }
 
+    @Override
+    public int findArrearsAmount(int STUDENT_ID) {
+        Connection con = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        int BALANCE_AMT = 0;
+        try {
+            con = DataBaseConnection.Connection.con();
+            pre = con.prepareStatement("SELECT BALANCE_AMT FROM hostel_monthly_fee_ledger\n"
+                    + "WHERE HOSTEL_MONTHLY_FEE_LEDGER_ID  = "
+                    + "(SELECT MAX(HOSTEL_MONTHLY_FEE_LEDGER_ID) from hostel_monthly_fee_ledger where STUDENT_ID = ?)");
+
+            pre.setInt(1, STUDENT_ID);
+            rs = pre.executeQuery();
+
+            if (rs.next()) {
+                BALANCE_AMT = rs.getInt("BALANCE_AMT");
+
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return BALANCE_AMT;
+    }
+
+    @Override
+    public int insertHostelMonthlyFeeLedger(HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean) {
+        Connection con = null;
+        PreparedStatement pre = null;
+        int i = 0;
+
+        try {
+            con = DataBaseConnection.Connection.con();
+            pre = con.prepareStatement("INSERT INTO hostel_monthly_fee_ledger (STUDENT_ID, ADMISSION_NO, CLASS_ID, SECTION_ID,"
+                    + " BILL_MONTH_ID, BILL_YEAR, CURRENT_MONTH_FEE,\n"
+                    + "ARREARS_AMT, TOTAL_TO_PAY, TOTAL_PAID_AMT, BALANCE_AMT, ENTRY_ID, FLAG, ENTRY_DATE, ENTRY_DATE_TIME)\n"
+                    + "VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?,CURDATE(), NOW())");
+
+            pre.setInt(1, hostelMonthlyFeeLedgerBean.getSTUDENT_ID());
+            pre.setString(2, hostelMonthlyFeeLedgerBean.getADMISSION_NO());
+            pre.setInt(3, hostelMonthlyFeeLedgerBean.getCLASS_ID());
+            pre.setInt(4, hostelMonthlyFeeLedgerBean.getSECTION_ID());
+            pre.setInt(5, hostelMonthlyFeeLedgerBean.getBILL_MONTH_ID());
+            pre.setString(6, hostelMonthlyFeeLedgerBean.getBILL_YEAR());
+            pre.setInt(7, hostelMonthlyFeeLedgerBean.getCURRENT_MONTH_FEE());
+            pre.setInt(8, hostelMonthlyFeeLedgerBean.getARREARS_AMT());
+            pre.setInt(9, hostelMonthlyFeeLedgerBean.getTOTAL_TO_PAY());
+            pre.setInt(10, hostelMonthlyFeeLedgerBean.getTOTAL_PAID_AMT());
+            pre.setInt(11, hostelMonthlyFeeLedgerBean.getBALANCE_AMT());
+            pre.setInt(12, hostelMonthlyFeeLedgerBean.getENTRY_ID());
+            pre.setInt(13, hostelMonthlyFeeLedgerBean.getFLAG());
+            
+
+            i = pre.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (pre != null) {
+                    pre.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return i;
+    }
+
 }
