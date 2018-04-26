@@ -1,0 +1,122 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ClassSection.Controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author mishra
+ */
+@WebServlet(name = "CheckClassSectionAvailablity", urlPatterns = {"/CheckClassSectionAvailablity"})
+public class CheckClassSectionAvailablity extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        Connection con = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        try {
+            con = DataBaseConnection.Connection.con();
+            int CLASS_ID = Integer.parseInt(request.getParameter("CLASS_ID"));
+            int SECTION_ID = Integer.parseInt(request.getParameter("SECTION_ID"));
+
+            pre = con.prepareStatement("SELECT CLASS_SECTION_ID FROM class_section WHERE CLASS_ID = ? AND SECTION_ID = ?");
+            pre.setInt(1, CLASS_ID);
+            pre.setInt(2, SECTION_ID);
+            
+            rs = pre.executeQuery();
+           
+            if (rs.next()) {
+                out.print("1");
+            } else {
+                out.print("0");
+            }
+
+        } catch (Exception e) {
+            out.print("0");
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (rs != null) {
+                    rs.close();;
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+                if (con != null) {
+                    con.close();;
+                }
+            } catch (Exception e) {
+                System.out.print(e);
+            }
+
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

@@ -33,9 +33,9 @@
             <li class="">
                 <a href="#" title="New Student Admission"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent"> New Addmission</span></a>
                 <ul>
-                    <li class="">
-                        <a href="#" title="Add New Student"><i class="fa fa-cube"></i> <span class="menu-item-parent"> Add New Student</span></a>
-                    </li>
+                    <li class=""> 
+                        <a href="/ProgressiveHostel/Student/AddStudent.jsp?id=<%=0%>" title="Add New Student"><i class="fa fa-cube"></i> <span class="menu-item-parent">Admission Form</span></a>
+                    </li>  
                     <li class="">
                         <a href="#" title="View All Student"><i class="fa fa-lg fa-fw fa-picture-o"></i>&nbsp;<span class="menu-item-parent"> View All Student</span></a>
                     </li>
@@ -45,9 +45,9 @@
                 <a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Monthly Hostel Fee</span></a>
                 <ul>
                     <li class="">
-                        <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">App Layouts</span></a>
+                        <a href="/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp" title="HostelMonthlyFeeForm"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Fee Submission Form</span></a> 
                     </li>
-                    <li class="">
+<!--                    <li class="">
                         <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-picture-o"></i> <span class="menu-item-parent">Prebuilt Skins</span></a>
                     </li>
                     <li>
@@ -55,7 +55,7 @@
                     </li>
                     <li>
                         <a href="ajax/applayout.html"><i class="fa fa-cube"></i> App Settings</a>
-                    </li>
+                    </li>-->
                 </ul>
             </li>
             <li class="top-menu-invisible">
@@ -74,7 +74,7 @@
                         <a href="/ProgressiveHostel/Setup/SetOneTimeCharges.jsp"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Set OneTime Charges</span></a>
                     </li>
                     <li>
-                        <a href="/ProgressiveHostel/Setup/SetMonthlyCharge.jsp"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Set Monthly Charge</span></a>
+                        <a href="/ProgressiveHostel/Setup/SetClassHostelMonthlyCharge.jsp"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">Set Monthly Charge</span></a>
                     </li>
                 </ul>
             </li>

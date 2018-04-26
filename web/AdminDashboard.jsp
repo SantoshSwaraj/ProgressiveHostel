@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%    
+    if (session.getAttribute("USER_ID") != null) {
+%> 
 <!DOCTYPE html>
 <html lang="en-us">	
     <head>
@@ -137,3 +140,8 @@
         <script src="/ProgressiveHostel/assets/js/smart-chat-ui/smart.chat.manager.min.js"></script>
     </body>
 </html>
+<%   
+    } else {
+        response.sendRedirect("index.jsp");
+    }
+%>

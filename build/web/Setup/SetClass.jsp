@@ -38,9 +38,12 @@
             .MainHeader{
                 padding-bottom: 21px;
             }
+
         </style>
+        <script src="setClass.js"></script> 
+
     </head>
-    <body class="smart-style-0">
+    <body class="smart-style-0" onload="hideMsg(); getClasses();">
         <%@include file="/IncludeFile/header.jsp"%>
         <%@include file="/IncludeFile/aside.jsp"%>
         <!-- #MAIN PANEL -->
@@ -60,60 +63,60 @@
                 <!--ADD CLASS START -->
                 <div class="container-fluid">
                     <header class="MainHeader">
-                        <span class="widget-icon"> <i style="display:inline" class="fa fa-edit"></i><h2 style="display:inline"> Add Class</h2> </span>
+                        <span class="widget-icon"> <i style="display:inline" class="fa fa-edit"></i><h2 style="display:inline"> Add Class</h2></span>
+                        <div class="container" id="messageContainer" style="margin-left: -32px;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <%@include file="/IncludeFile/message.jsp"%> 
+                                </div>
+                            </div>
+                        </div>
                     </header>
                     <!-- widget div-->
                     <div>
-
                         <!-- widget edit box -->
                         <div class="jarviswidget-editbox">
                             <!-- This area used as dropdown edit box -->
-
                         </div>
                         <!-- end widget edit box -->
 
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-
-                            <form action="#" id="order-form" class="smart-form" novalidate="novalidate">
+                            <form action="/ProgressiveHostel/AddClass" method="POST" id="addClass-form" class="smart-form">
                                 <fieldset>
                                     <div class="row">
                                         <section class="col col-6">
-                                            <label class="input"> <i class="icon-append fa fa-user"></i>
-                                                <input type="text" name="name" placeholder="Class">
+                                            <label class="input"> <i class="icon-append fa fa-institution"></i>
+                                                <input type="text" name="CLASS_NAME" id="CLASS_NAME" placeholder="Enter Class" required="" onblur="checkClassAvailablity(this.value)">
+                                                <span id="checkClassAvailMsg" style="color:red;">Class Name Not Available</span>
                                             </label>
                                         </section>
                                     </div>                               
                                 </fieldset>
                                 <footer>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" id="btn"> 
                                         Submit
                                     </button>
                                 </footer>
                             </form>
-
                         </div>
                         <!-- end widget content -->
-
                     </div>
                     <!-- end widget div -->
                 </div>
-                <!--ADD CLASS ENDS -->
+                <!--ADD CLASS ENDS-->
+                <!--VIEW CLASS STARTS-->
                 <div class="container-fluid">
                     <header class="MainHeader">
                         <span class="widget-icon"> <i style="display:inline" class="fa fa-table"></i><h2 style="display:inline"> View Class</h2> </span>
                     </header>
-
                     <!-- widget div-->
                     <div>
-
                         <!-- widget edit box -->
                         <div class="jarviswidget-editbox">
                             <!-- This area used as dropdown edit box -->
-
                         </div>
                         <!-- end widget edit box -->
-
                         <!-- widget content -->
                         <div class="widget-body no-padding">
 
@@ -124,34 +127,16 @@
                                         <th data-class="expand">Class Name</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Play Group</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>KG 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>KG 2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>1</td>
-                                    </tr>
+                                <tbody id="tbody">
                                 </tbody>
                             </table>
-
                         </div>
                         <!-- end widget content -->
-
                     </div>
                     <!-- end widget div -->
-
                 </div>
                 <!-- end widget -->
+                <!--VIEW CLASS ENDS-->
             </div>
         </div>
         <!-- END #MAIN CONTENT -->
