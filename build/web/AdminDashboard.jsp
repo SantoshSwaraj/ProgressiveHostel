@@ -4,9 +4,14 @@
     Author     : SantoshKushwaha
 --%>
 
+<%@page import="Collection.DAO.CollectionDAOImpl"%>
+<%@page import="Collection.DAO.CollectionDAO"%>
+<%@page import="HostelMonthlyFeeLedger.DAO.HostelMonthlyFeeLedgerDAOImpl"%>
+<%@page import="HostelMonthlyFeeLedger.DAO.HostelMonthlyFeeLedgerDAO"%>
+<%@page import="StudentMaster.DAO.StudentMasterDAOImpl"%>
+<%@page import="StudentMaster.DAO.StudentMasterDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%    
-    if (session.getAttribute("USER_ID") != null) {
+<%    if (session.getAttribute("USER_ID") != null) {
 %> 
 <!DOCTYPE html>
 <html lang="en-us">	
@@ -17,7 +22,7 @@
         <meta name="author" content="">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" type="text/css" media="screen" href="/ProgressiveHostel/assets/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" type="text/css" media="screen" href="/ProgressiveHostel/assets/css/bootstrap.min.css">-->
         <link rel="stylesheet" type="text/css" media="screen" href="/ProgressiveHostel/assets/css/font-awesome.min.css">
 
         <!-- Caution! DO NOT change the order -->
@@ -28,10 +33,12 @@
         <!-- RTL Support -->
         <link rel="stylesheet" type="text/css" media="screen" href="/ProgressiveHostel/assets/css/smartadmin-rtl.min.css"> 
         <link rel="stylesheet" type="text/css" media="screen" href="/ProgressiveHostel/assets/css/demo.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="/ProgressiveHostel/assets/css/bootstrap.min_1.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="/ProgressiveHostel/assets/css/sb-admin.css">
 
         <!-- #FAVICONS -->
         <link rel="shortcut icon" href="/ProgressiveHostel/assets/img/favicon/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/ProgressiveHostel/assets/img/favicon/favicon.ico" type="image/x-icon"> 
+        <link rel="icon" href="/ProgressiveHostel/assets/img/favicon/favicon.ico" type="image/x-icon">
         <!-- #GOOGLE FONT -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
         <style>
@@ -58,13 +65,93 @@
             <!-- #MAIN CONTENT -->
             <div id="content">
 
-            </div>
+                <!-- Icon Cards-->
+                <div class="row">
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-primary o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fa fa-fw fa-comments"></i>
+                                </div>
+                                <%
+                                    StudentMasterDAO studentMasterDAO = new StudentMasterDAOImpl();
+                                    int countOfRegStudents = studentMasterDAO.countOfRegisteredStudents();
+                                %>
+                                <div class="mr-5"><%=countOfRegStudents%>&nbsp;<small>No of Reg. Students</small></div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fa fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-warning o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fa fa-fw fa-list"></i>
+                                </div>
+                                <%
+                                    HostelMonthlyFeeLedgerDAO hostelMonthlyFeeLedgerDAO = new HostelMonthlyFeeLedgerDAOImpl();
+                                    int totalDuesAmount = hostelMonthlyFeeLedgerDAO.getTotalDuesAmount();
+                                %>
+                                <div class="mr-5"><i class="fas fa-rupee-sign"></i><%=totalDuesAmount%>&nbsp;<small>Total Dues</small></div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fa fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-success o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fa fa-fw fa-shopping-cart"></i>
+                                </div>
+                                <%
+                                  CollectionDAO collectionDAO = new CollectionDAOImpl();
+                                  int totalCollectionAmount = collectionDAO.getTotalCollection();
+                                %>
+                                <div class="mr-5"><i class="fas fa-rupee-sign"></i><%=totalCollectionAmount%>&nbsp;<small>Total Collections</small></div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fa fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+<!--                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-danger o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fa fa-fw fa-support"></i>
+                                </div>
+                                <div class="mr-5">13 New Tickets!</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fa fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>-->
+                </div>
 
+
+            </div>
             <!-- END #MAIN CONTENT -->
         </div>
         <!-- END #MAIN PANEL -->
         <%@include file="/IncludeFile/mainfooter.jsp"%>
- 
+
         <div id="shortcut">
             <ul>
                 <li>
@@ -92,7 +179,7 @@
         <script src="/ProgressiveHostel/assets/js/libs/jquery-ui.min.js"></script>
         <!--================================================== -->
         <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-        
+
         <script src="/ProgressiveHostel/assets/js/dropdown.js"></script> 
         <script src="/ProgressiveHostel/assets/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
 
@@ -140,7 +227,7 @@
         <script src="/ProgressiveHostel/assets/js/smart-chat-ui/smart.chat.manager.min.js"></script>
     </body>
 </html>
-<%   
+<%
     } else {
         response.sendRedirect("index.jsp");
     }

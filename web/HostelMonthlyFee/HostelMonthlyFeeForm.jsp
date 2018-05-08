@@ -93,54 +93,13 @@
                             <form action="/ProgressiveHostel/SearchStudentMonthlyFeeLedger" method="POST" id="addClass-form" class="smart-form">
                                 <fieldset>
                                     <div class="row">
-                                        <section class="col col-md-12">
+                                        <section class="col col-md-4">
                                             <label class="input"> <i class="icon-append fa fa-institution"></i>
                                                 <input type="text" name="ADMISSION_NO_OR_STUDENT_ID" id="ADMISSION_NO_OR_STUDENT_ID" placeholder="Admission No or Student ID">
                                                 <span id="" style="color:red;"></span>
                                             </label>
                                         </section>
-<!--                                        <section class="col col-6">
-                                            <label class="input"> <i class="icon-append fa fa-user"></i>
-                                                <input type="text" name="FLAG" id="STUDENT_ID" placeholder="Student Id">
-                                                <span id="" style="color:red;"></span>
-                                            </label>
-                                        </section>-->
-                                    </div>   
-<!--                                    <div class="row">
-                                        <section class="col col-6">
-                                            <label class="select">
-                                                <select name="CLASS_ID" id="CLASS_ID">
-                                                    <option value="0" selected="" disabled="">Select Class</option>
-                                                    <%
-                                                        ClassDAO classDAO = new ClassDAOImpl();
-                                                        ArrayList<ClassBean> classBeanList = classDAO.getClasses();
-                                                        for (ClassBean classBean : classBeanList) {
-
-                                                    %>
-                                                    <option value="<%=classBean.getCLASS_ID()%>"><%=classBean.getCLASS_NAME()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select> <i></i> </label>
-                                        </section>
-                                        <section class="col col-6">
-                                            <label class="select">
-                                                <select name="SECTION_ID" id="SECTION_ID">
-                                                    <option value="0" selected="" disabled="">Select Section</option>
-                                                    <%
-                                                        SectionDAO sectionDAO = new SectionDAOImpl();
-                                                        ArrayList<SectionBean> sectionBeanList = sectionDAO.getSections();
-                                                        for (SectionBean sectionBean : sectionBeanList) {
-                                                    %>
-                                                    <option value="<%=sectionBean.getSECTION_ID()%>"><%=sectionBean.getSECTION_NAME()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select> <i></i> </label>
-                                        </section>
-                                    </div>-->
-                                    <div class="row">
-                                        <section class="col col-6">
+                                        <section class="col col-4">
                                             <label class="select">
                                                 <select name="BILL_MONTH_ID" id="BILL_MONTH_ID">
                                                     <option value="0" selected="" disabled="">Select Month</option>
@@ -155,7 +114,7 @@
                                                     %>
                                                 </select> <i></i> </label>
                                         </section>
-                                        <section class="col col-6">
+                                        <section class="col col-4">
                                             <label class="select">
                                                 <select name="BILL_YEAR" id="BILL_YEAR">
                                                     <option value="0" selected="" disabled="">Select Year</option>
@@ -165,7 +124,7 @@
                                                     <option value="2021">2021</option>
                                                 </select> <i></i> </label>
                                         </section>
-                                    </div>
+                                    </div>   
                                 </fieldset>
 
                                 <footer>

@@ -73,6 +73,24 @@ public class AddStudentParentDetails extends HttpServlet {
                 studentParentDetailsBean.setSTUDENT_MOTHER_OCCUPATION(request.getParameter("STUDENT_MOTHER_OCCUPATION"));
 
             }
+            
+            if (!"".equals(request.getParameter("STUDENT_GUARDIAN_NAME"))) {
+                studentParentDetailsBean.setSTUDENT_GUARDIAN_NAME(request.getParameter("STUDENT_GUARDIAN_NAME"));
+
+            } else {
+                studentParentDetailsBean.setSTUDENT_GUARDIAN_NAME(request.getParameter(""));
+
+            }
+            
+            if (!"".equals(request.getParameter("STUDENT_GUARDIAN_MOBILE"))) {
+                studentParentDetailsBean.setSTUDENT_GUARDIAN_MOBILE(request.getParameter("STUDENT_GUARDIAN_MOBILE"));
+
+            } else {
+                studentParentDetailsBean.setSTUDENT_GUARDIAN_MOBILE(request.getParameter(""));
+
+            }
+            
+            
 
             studentParentDetailsBean.setENTRY_ID((Integer) session.getAttribute("EMPLOYEE_ID"));
 

@@ -40,7 +40,7 @@ public class AddStudentOneTimeChargeDetails extends HttpServlet {
         HttpSession session = request.getSession();
         try {
             StudentOneTimeChargeDetailsBean studentOneTimeChargeDetailsBean = new StudentOneTimeChargeDetailsBean();
-            studentOneTimeChargeDetailsBean.setSTUDENT_ID((Integer) session.getAttribute("STUDENT_ID"));
+            studentOneTimeChargeDetailsBean.setSTUDENT_ID(Integer.parseInt(request.getParameter("STUDENT_ID")));
             studentOneTimeChargeDetailsBean.setSECURITY_MONEY(Integer.parseInt(request.getParameter("SECURITY_MONEY")));
             studentOneTimeChargeDetailsBean.setPACKET_MONEY(Integer.parseInt(request.getParameter("PACKET_MONEY")));
             studentOneTimeChargeDetailsBean.setTOTAL_TO_PAY(Integer.parseInt(request.getParameter("TOTAL_TO_PAY")));
@@ -50,22 +50,22 @@ public class AddStudentOneTimeChargeDetails extends HttpServlet {
             studentOneTimeChargeDetailsBean.setBALANCE_AMT(BALANCE_AMT);
 
             studentOneTimeChargeDetailsBean.setENTRY_ID((Integer) session.getAttribute("EMPLOYEE_ID"));
-            
+
             StudentOneTimeChargeDetailsDAO studentOneTimeChargeDetailsDAO = new StudentOneTimeChargeDetailsDAOImpl();
             int i = studentOneTimeChargeDetailsDAO.addStudentOneTimeChargeDetails(studentOneTimeChargeDetailsBean);
 
             if (i > 0) {
-                session.setAttribute("msg", "One Time Charges Added");
-                response.sendRedirect("/ProgressiveHostel/Student/NewStudentAdmissionSlip.jsp");
+                session.setAttribute("STUDENT_ID", Integer.parseInt(request.getParameter("STUDENT_ID")));
+                response.sendRedirect("/ProgressiveHostel/OneTimeCharges/StudentOneTimeChargesSlip.jsp");
 
             } else {
                 session.setAttribute("wmsg", "Unable to Pay One Time Charges..");
-                response.sendRedirect("/ProgressiveHostel/Student/AddStudent.jsp?id=4");
+                response.sendRedirect("/ProgressiveHostel/OneTimeCharges/OneTimeChargeForm.jsp");
             }
 
         } catch (Exception e) {
             session.setAttribute("wmsg", "Unable to Pay One Time Charges.. Try Again..");
-            response.sendRedirect("/ProgressiveHostel/Student/AddStudent.jsp?id=4");
+            response.sendRedirect("/ProgressiveHostel/OneTimeCharges/OneTimeChargeForm.jsp");
         }
     }
 

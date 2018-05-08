@@ -6,6 +6,9 @@
 
 package StudentMaster.Bean;
 
+import Classes.Bean.ClassBean;
+import Section.Bean.SectionBean;
+import Session.Bean.SessionBean;
 import StudentAddressDetails.Bean.StudentAddressDetailsBean;
 import StudentDocumentDetails.Bean.StudentDocumentDetailsBean;
 import StudentOneTimeChargeDetails.Bean.StudentOneTimeChargeDetailsBean;
@@ -30,6 +33,9 @@ public class StudentMasterBean {
    private Integer ENTRY_ID;
    private Date ENTRY_DATE;
    private Timestamp ENTRY_DATE_TIME;
+   private SessionBean sessionBean;
+   private ClassBean classBean;
+   private SectionBean sectionBean;
    private StudentParentDetailsBean studentParentDetailsBean;
    private StudentAddressDetailsBean studentAddressDetailsBean;
    private StudentDocumentDetailsBean studentDocumentDetailsBean;
@@ -204,6 +210,48 @@ public class StudentMasterBean {
     }
 
     /**
+     * @return the sessionBean
+     */
+    public SessionBean getSessionBean() {
+        return sessionBean;
+    }
+
+    /**
+     * @param sessionBean the sessionBean to set
+     */
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
+    }
+
+    /**
+     * @return the classBean
+     */
+    public ClassBean getClassBean() {
+        return classBean;
+    }
+
+    /**
+     * @param classBean the classBean to set
+     */
+    public void setClassBean(ClassBean classBean) {
+        this.classBean = classBean;
+    }
+
+    /**
+     * @return the sectionBean
+     */
+    public SectionBean getSectionBean() {
+        return sectionBean;
+    }
+
+    /**
+     * @param sectionBean the sectionBean to set
+     */
+    public void setSectionBean(SectionBean sectionBean) {
+        this.sectionBean = sectionBean;
+    }
+
+    /**
      * @return the studentParentDetailsBean
      */
     public StudentParentDetailsBean getStudentParentDetailsBean() {
@@ -258,6 +306,9 @@ public class StudentMasterBean {
     public void setStudentOneTimeChargeDetailsBean(StudentOneTimeChargeDetailsBean studentOneTimeChargeDetailsBean) {
         this.studentOneTimeChargeDetailsBean = studentOneTimeChargeDetailsBean;
     }
+   
+
+   
 
     
 }

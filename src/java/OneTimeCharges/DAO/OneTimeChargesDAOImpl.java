@@ -61,6 +61,7 @@ public class OneTimeChargesDAOImpl implements OneTimeChargesDAO {
             rs = pre.executeQuery();
             while (rs.next()) {
                 OneTimeChargeBean oneTimeChargeBean = new OneTimeChargeBean();
+                oneTimeChargeBean.setONE_TIME_CHARGE_ID(rs.getInt("ONE_TIME_CHARGE_ID"));
                 oneTimeChargeBean.setCHARGE_NAME(rs.getString("CHARGE_NAME"));
                 oneTimeChargeBean.setCHARGE_AMOUNT(rs.getInt("CHARGE_AMOUNT"));
 

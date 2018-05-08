@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author mishra
+ * @author Santosh Kushwaha
  */
 @WebServlet(name = "UpdateHostelMonthlyFeeLedger", urlPatterns = {"/UpdateHostelMonthlyFeeLedger"})
 public class UpdateHostelMonthlyFeeLedger extends HttpServlet {
@@ -41,6 +41,10 @@ public class UpdateHostelMonthlyFeeLedger extends HttpServlet {
         try {
             HostelMonthlyFeeLedgerBean hostelMonthlyFeeLedgerBean = new HostelMonthlyFeeLedgerBean();
             hostelMonthlyFeeLedgerBean.setHOSTEL_MONTHLY_FEE_LEDGER_ID(Integer.parseInt(request.getParameter("HOSTEL_MONTHLY_FEE_LEDGER_ID")));
+            hostelMonthlyFeeLedgerBean.setSTUDENT_ID(Integer.parseInt(request.getParameter("STUDENT_ID")));
+            hostelMonthlyFeeLedgerBean.setBILL_NO(request.getParameter("BILL_NO"));
+            hostelMonthlyFeeLedgerBean.setBILL_MONTH_ID(Integer.parseInt(request.getParameter("BILL_MONTH_ID")));
+            hostelMonthlyFeeLedgerBean.setBILL_YEAR(request.getParameter("BILL_YEAR"));
             hostelMonthlyFeeLedgerBean.setCURRENT_MONTH_FEE(Integer.parseInt(request.getParameter("CURRENT_MONTH_FEE")));
             hostelMonthlyFeeLedgerBean.setARREARS_AMT(Integer.parseInt(request.getParameter("ARREARS_AMT")));
             hostelMonthlyFeeLedgerBean.setTOTAL_TO_PAY(Integer.parseInt(request.getParameter("TOTAL_TO_PAY")));
@@ -48,8 +52,7 @@ public class UpdateHostelMonthlyFeeLedger extends HttpServlet {
 
             int BALANCE_AMT = Integer.parseInt(request.getParameter("TOTAL_TO_PAY")) - Integer.parseInt(request.getParameter("TOTAL_PAID_AMT"));
             hostelMonthlyFeeLedgerBean.setBALANCE_AMT(BALANCE_AMT);
-            hostelMonthlyFeeLedgerBean.setFLAG(1);
-            
+
             hostelMonthlyFeeLedgerBean.setENTRY_ID((Integer) session.getAttribute("EMPLOYEE_ID"));
 
             HostelMonthlyFeeLedgerDAO hostelMonthlyFeeLedgerDAO = new HostelMonthlyFeeLedgerDAOImpl();
@@ -57,15 +60,18 @@ public class UpdateHostelMonthlyFeeLedger extends HttpServlet {
             int i = hostelMonthlyFeeLedgerDAO.updateHostelMonthlyFeeLedger(hostelMonthlyFeeLedgerBean);
 
             if (i > 0) {
-                
+                session.setAttribute("msg", "Fees Added Successfully");
+                session.setAttribute("HostelMonthlyFeeLedgerBean", hostelMonthlyFeeLedgerBean); 
+                response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/UpdatedHostelMonthlyFeeSlip.jsp"); 
 
             } else {
-                
-
+                session.setAttribute("wmsg", "Unable to Add Fee..");
+                response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp");
             }
 
         } catch (Exception e) {
-
+            session.setAttribute("wmsg", "Unable to Add Fee.. Try Again..");
+            response.sendRedirect("/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp");
         }
     }
 

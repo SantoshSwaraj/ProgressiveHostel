@@ -7,6 +7,7 @@ package ClassHostelMonthlyFee.DAO;
 
 import ClassHostelMonthlyFee.Bean.ClassHostelMonthlyFeeBean;
 import ClassSection.Bean.ClassSectionBean;
+import Classes.Bean.ClassBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,7 +57,9 @@ public class ClassHostelMonthlyFeeDAOImpl implements ClassHostelMonthlyFeeDAO {
         ArrayList<ClassHostelMonthlyFeeBean> classHostelMonthlyFeeBeanList = new ArrayList<>();
         try {
             con = DataBaseConnection.Connection.con();
-            pre = con.prepareStatement("SELECT * FROM class_hostel_monthly_fee ORDER BY CLASS_HOSTEL_MONTHLY_FEE_ID");
+            pre = con.prepareStatement("SELECT * FROM class_hostel_monthly_fee chmf\n"
+                    + "inner join classes as class on chmf.CLASS_ID = class.CLASS_ID\n"
+                    + "ORDER BY CLASS_HOSTEL_MONTHLY_FEE_ID");
 
             rs = pre.executeQuery();
             while (rs.next()) {
@@ -64,6 +67,11 @@ public class ClassHostelMonthlyFeeDAOImpl implements ClassHostelMonthlyFeeDAO {
                 classHostelMonthlyFeeBean.setCLASS_HOSTEL_MONTHLY_FEE_ID(rs.getInt("CLASS_HOSTEL_MONTHLY_FEE_ID"));
                 classHostelMonthlyFeeBean.setCLASS_ID(rs.getInt("CLASS_ID"));
                 classHostelMonthlyFeeBean.setFEE(rs.getInt("FEE"));
+
+                ClassBean classBean = new ClassBean();
+                classBean.setCLASS_ID(rs.getInt("CLASS_ID"));
+                classBean.setCLASS_NAME(rs.getString("CLASS_NAME"));
+                classHostelMonthlyFeeBean.setClassBean(classBean);
 
                 classHostelMonthlyFeeBeanList.add(classHostelMonthlyFeeBean);
             }
@@ -103,7 +111,7 @@ public class ClassHostelMonthlyFeeDAOImpl implements ClassHostelMonthlyFeeDAO {
             rs = pre.executeQuery();
 
             if (rs.next()) {
-                
+
                 classHostelMonthlyFeeBean.setCLASS_HOSTEL_MONTHLY_FEE_ID(rs.getInt("CLASS_HOSTEL_MONTHLY_FEE_ID"));
                 classHostelMonthlyFeeBean.setCLASS_ID(rs.getInt("CLASS_ID"));
                 classHostelMonthlyFeeBean.setFEE(rs.getInt("FEE"));

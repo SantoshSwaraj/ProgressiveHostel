@@ -57,11 +57,11 @@ public class Login extends HttpServlet {
                 session.setAttribute("STATUS", userBean.getSTATUS()); 
                 response.sendRedirect("/ProgressiveHostel/AdminDashboard.jsp"); 
             } else {
-                session1.setAttribute("wmsg", "Username and password not matched.");
-                response.sendRedirect("/ProgressiveHostel/index.jsp");
-            }
+                session1.setAttribute("wmsg", "Username or password not matched.");
+                response.sendRedirect("/ProgressiveHostel/index.jsp"); 
+            } 
         } catch (IOException e) {
-            session1.setAttribute("wmsg", "Try Again Later.");
+            session1.setAttribute("wmsg", "Something went wrong..Contact Admin..");
             response.sendRedirect("/ProgressiveHostel/index.jsp");
         }
     }

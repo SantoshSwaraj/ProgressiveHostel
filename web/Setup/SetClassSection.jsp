@@ -46,9 +46,10 @@
                 padding-bottom: 21px;
             } 
         </style>
+        <script src="/ProgressiveHostel/utils.js"></script> 
         <script src="setClassSection.js"></script>
     </head>
-    <body class="smart-style-0" onload="hideMsg();">
+    <body class="smart-style-0" onload="hideMsg(); getClassSection();">
         <%@include file="/IncludeFile/header.jsp"%>
         <%@include file="/IncludeFile/aside.jsp"%>
         <!-- #MAIN PANEL -->
@@ -153,27 +154,11 @@
                             <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>
                                     <tr>
-                                        <th data-hide="phone">Class ID</th>
+                                        <th data-hide="phone">Class Name</th>
                                         <th data-class="expand">Section Name</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>A</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>B</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>C</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>D</td>
-                                    </tr>
+                                <tbody id="tbody"> 
                                 </tbody>
                             </table>
                         </div>

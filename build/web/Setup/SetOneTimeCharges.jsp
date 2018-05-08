@@ -41,7 +41,8 @@
         </style>
         <script src="setOneTimeCharges.js"></script>
     </head>
-    <body class="smart-style-0" onload="hideMsg()">
+    <body class="smart-style-0" onload="hideMsg();
+            getOneTimeCharges();">
         <%@include file="/IncludeFile/header.jsp"%>
         <%@include file="/IncludeFile/aside.jsp"%>
         <!-- #MAIN PANEL -->
@@ -83,9 +84,12 @@
                                 <fieldset>
                                     <div class="row">
                                         <section class="col col-6">
-                                            <label class="input"> <i class="icon-append fa fa-th"></i>
-                                                <input type="text" name="CHARGE_NAME" id="CHARGE_NAME" placeholder="Enter OneTime Charge Name">
-                                            </label>
+                                            <label class="select">
+                                                <select name="CHARGE_NAME" id="CHARGE_NAME">
+                                                    <option value="" selected="" disabled="">Select One Time Charges</option>
+                                                    <option value="Securtiy Money">SECURITY MONEY</option>
+                                                    <option value="Packet Money">PACKET MONEY</option>
+                                                </select> <i></i> </label>
                                         </section>
                                         <section class="col col-6">
                                             <label class="input"> <i class="icon-append fa fa-inr"></i>
@@ -131,17 +135,7 @@
                                         <th data-class="expand">OTC Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Security Money</td>
-                                        <td>8000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Packet Money</td>
-                                        <td>1000</td>
-                                    </tr>
+                                <tbody id="tbody">
                                 </tbody>
                             </table>
                         </div>

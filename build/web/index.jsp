@@ -36,10 +36,10 @@
         <header id="header">
             <div id="logo-group">
                 <span id="logo"> 
-                    <img src="assets/img/logo.png" alt="Progressive Hostel"> 
+                    <img src="assets/img/logo.png" alt="Progressive Hostel">  
                 </span>
             </div>
-            <!--            <span id="extr-page-header-space"> <span class="hidden-mobile hidden-xs">Need an account?</span> <a href="register.html" class="btn btn-danger">Create account</a> </span>-->
+            <span id="extr-page-header-space"> <span class="hidden-mobile hidden-xs">Need an account?</span> <a href="register.jsp" class="btn btn-danger">Create account</a> </span>
         </header>
         <div id="main" role="main">
             <!-- MAIN CONTENT -->
@@ -72,32 +72,73 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Message -->
+                    <%
+                        try {
+                            if (session.getAttribute("wmsg") == null || session.getAttribute("wmsg") == " " || session.getAttribute("wmsg").toString().equals("")) {
+                    %> 
+                    <div id="wmsg">
+                        <%session.setAttribute("wmsg", " ");%>  
+                    </div> 
+                    <%
+                    } else {%> 
+                    <div id="wmsg" style="color: black; font-size: 13px; font-weight: 900; background-color: #ff000063; padding: 8px; margin-left: 786px; margin-right: 13px; margin-bottom: 12px;">
+                        <strong>
+                            Error ! <%=session.getAttribute("wmsg")%>
+                        </strong>
+                        <%session.setAttribute("wmsg", " ");%> 
+                    </div> 
+                    <%}
+                        } catch (Exception e) {
+
+                        }
+                    %> 
+
+                    <%
+                        try {
+                            if (session.getAttribute("msg") == null || session.getAttribute("msg") == " " || session.getAttribute("msg").toString().equals("")) {
+                    %> 
+                    <div id="msg">
+                        <%session.setAttribute("msg", " ");%> 
+                    </div> 
+                    <%
+                    } else {%> 
+                    <div id="msg" style="color: black; font-size: 13px; font-weight: 900; background-color: #a6f3b3; padding: 8px; margin-left: 786px; margin-right: 13px; margin-bottom: 12px;">
+                        <strong>
+                            Success ! <%=session.getAttribute("msg")%>
+                        </strong>
+                        <%session.setAttribute("msg", " ");%> 
+                    </div> 
+                    <%}
+                        } catch (Exception e) {
+
+                        }
+                    %> 
+                    <!-- Message -->
+
+
                     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                         <div class="well no-padding">
                             <form action="/ProgressiveHostel/Login" method="post" id="login-form" class="smart-form client-form">
                                 <header>
-                                    Sign In
+                                    Sign In 
                                 </header>
                                 <fieldset>
                                     <section>
                                         <label class="label">Username</label>
                                         <label class="input"> <i class="icon-append fa fa-user"></i>
-                                            <input type="text" name="USERNAME" id="USERNAME">
+                                            <input type="text" name="USERNAME" id="USERNAME" minlength="5" maxlength="35" required="">
                                             <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter username</b></label>
                                     </section>
                                     <section>
                                         <label class="label">Password</label>
                                         <label class="input"> <i class="icon-append fa fa-lock"></i>
-                                            <input type="password" name="PASSWORD" id="PASSWORD">
+                                            <input type="password" name="PASSWORD" id="PASSWORD" minlength="5" maxlength="35" required="">
                                             <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
                                         <div class="note">
-                                            <a href="forgotpassword.html">Forgot password?</a>
+                                            <a href="forgotpassword.jsp">Forgot password?</a>
                                         </div>
-                                    </section>
-                                    <section>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="remember" checked="">
-                                            <i></i>Stay signed in</label>
                                     </section>
                                 </fieldset>
                                 <footer>
@@ -112,40 +153,9 @@
             </div>
         </div>
         <%@include file="/IncludeFile/footer.jsp"%>
-        <!--================================================== -->	
-        <script>
-            runAllForms();
-            $(function() {
-                // Validation
-                $("#login-form").validate({
-                    // Rules for form validation
-                    rules: {
-                        email: {
-                            required: true,
-                            email: true
-                        },
-                        password: {
-                            required: true,
-                            minlength: 3,
-                            maxlength: 20
-                        }
-                    },
-                    // Messages for form validation
-                    messages: {
-                        email: {
-                            required: 'Please enter your email address',
-                            email: 'Please enter a VALID email address'
-                        },
-                        password: {
-                            required: 'Please enter your password'
-                        }
-                    },
-                    // Do not change code below
-                    errorPlacement: function(error, element) {
-                        error.insertAfter(element.parent());
-                    }
-                });
-            });
-        </script>
+        <!--================================================== -->
+        <script src="/ProgressiveHostel/assets/js/libs/jquery-3.2.1.min.js"></script>
+        <script src="/ProgressiveHostel/assets/js/libs/jquery.min.js"></script>
+        <script src="/ProgressiveHostel/assets/js/libs/jquery-ui.min.js"></script>
     </body>
 </html>

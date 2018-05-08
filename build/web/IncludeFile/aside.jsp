@@ -1,9 +1,13 @@
 <%-- 
     Document   : aside
     Created on : 19 Apr, 2018, 12:36:51 PM
-    Author     : Santosh
+    Author     : Santosh Kushwaha
 --%>
-
+<%@page import="User.UserBean"%>
+<%
+    int USER_ID = (Integer) session.getAttribute("USER_ID");
+    UserBean userBean = User.Query.viewUserRegById(USER_ID);
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- #NAVIGATION -->
 <!-- Left panel : Navigation area -->
@@ -16,9 +20,10 @@
         <span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
 
             <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-                <img src="/ProgressiveHostel/assets/img/avatars/sunny.png" alt="me" class="online" /> 
+                <!--<img src="/ProgressiveHostel/assets/img/avatars/sunny.png" alt="me" class="online" />-->
+                <span></span>
                 <span>
-                    Santosh Kushwaha 
+                    Welcome! <%=userBean.getEMP_NAME()%>
                 </span>
                 <i class="fa fa-angle-down"></i>
             </a> 
@@ -28,16 +33,19 @@
     <nav>
         <ul id="MainMenu">
             <li class="">
-                <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+                <a href="/ProgressiveHostel/AdminDashboard.jsp" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             <li class="">
-                <a href="#" title="New Student Admission"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent"> New Addmission</span></a>
+                <a href="#" title="New Student Admission"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent"> New Admission</span></a>
                 <ul>
                     <li class=""> 
                         <a href="/ProgressiveHostel/Student/AddStudent.jsp?id=<%=0%>" title="Add New Student"><i class="fa fa-cube"></i> <span class="menu-item-parent">Admission Form</span></a>
-                    </li>  
+                    </li> 
+                    <li class=""> 
+                        <a href="/ProgressiveHostel/OneTimeCharges/OneTimeChargeForm.jsp" title="One Time Charges"><i class="fa fa-cube"></i> <span class="menu-item-parent">One Time Charges</span></a>
+                    </li> 
                     <li class="">
-                        <a href="#" title="View All Student"><i class="fa fa-lg fa-fw fa-picture-o"></i>&nbsp;<span class="menu-item-parent"> View All Student</span></a>
+                        <a href="/ProgressiveHostel/Student/ViewStudents.jsp" title="View All Student"><i class="fa fa-lg fa-fw fa-picture-o"></i>&nbsp;<span class="menu-item-parent"> View All Student</span></a>
                     </li>
                 </ul>	
             </li>
@@ -47,15 +55,9 @@
                     <li class="">
                         <a href="/ProgressiveHostel/HostelMonthlyFee/HostelMonthlyFeeForm.jsp" title="HostelMonthlyFeeForm"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Fee Submission Form</span></a> 
                     </li>
-<!--                    <li class="">
-                        <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-picture-o"></i> <span class="menu-item-parent">Prebuilt Skins</span></a>
+                    <li class="">
+                        <a href="/ProgressiveHostel/HostelMonthlyFee/StudentDuesList.jsp" title="StudentDuesList"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Student Dues Report</span></a> 
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-stack-overflow"></i> App Variations</a>
-                    </li>
-                    <li>
-                        <a href="ajax/applayout.html"><i class="fa fa-cube"></i> App Settings</a>
-                    </li>-->
                 </ul>
             </li>
             <li class="top-menu-invisible">

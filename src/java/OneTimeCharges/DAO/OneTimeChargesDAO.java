@@ -16,5 +16,5 @@ import java.util.ArrayList;
 public interface OneTimeChargesDAO {
     public int addOneTimeCharges(OneTimeChargeBean oneTimeChargeBean);
     public ArrayList getOneTimeCharges();
-    
+        
 }

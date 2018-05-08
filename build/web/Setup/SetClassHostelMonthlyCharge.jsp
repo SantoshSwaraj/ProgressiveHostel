@@ -45,7 +45,7 @@
         </style>
         <script src="setClassHostelMonthlyCharge.js"></script>
     </head>
-    <body class="smart-style-0" onload="hideMsg();">
+    <body class="smart-style-0" onload="hideMsg(); getClassHostelMonthlyCharges();">
         <%@include file="/IncludeFile/header.jsp"%>
         <%@include file="/IncludeFile/aside.jsp"%>
         <!-- #MAIN PANEL -->
@@ -90,10 +90,9 @@
                                             <label class="select" fa fa-institution>
                                                 <select name="CLASS_ID" id="CLASS_ID">
                                                     <option value="0" selected="" disabled="">Select Class</option>
-                                                    <%  
-                                                        ClassDAO classDAO = new ClassDAOImpl();
+                                                    <%                                                        ClassDAO classDAO = new ClassDAOImpl();
                                                         ArrayList<ClassBean> ClassBeanList = classDAO.getClasses();
-                                                        for(ClassBean classBean : ClassBeanList){
+                                                        for (ClassBean classBean : ClassBeanList) {
                                                     %> 
                                                     <option value="<%=classBean.getCLASS_ID()%>"><%=classBean.getCLASS_NAME()%></option>
                                                     <%
@@ -140,22 +139,12 @@
                             <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>
                                     <tr>
-                                        <th data-hide="phone">OTC ID</th>
-                                        <th data-class="expand">OTC Name</th>
-                                        <th data-class="expand">OTC Amount</th>
+                                        <th data-hide="phone">Sno</th>
+                                        <th data-class="expand">Class Name</th>
+                                        <th data-class="expand">Monthly Fee</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Security Money</td>
-                                        <td>8000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Packet Money</td>
-                                        <td>1000</td>
-                                    </tr>
+                                <tbody id="tbody">
                                 </tbody>
                             </table>
                         </div>

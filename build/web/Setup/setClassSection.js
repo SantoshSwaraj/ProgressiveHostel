@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 function hideMsg() {
-    $('#checkChargeAvailMsg').hide();
+    $('#checkClassSectionAvailMsg').hide();
 }
 
 function checkClassSectionAvailablity() {
@@ -24,17 +24,35 @@ function checkClassSectionAvailablity() {
             //data is zero means new;
             if (data == 1)
             {
-                $("#checkChargeAvailMsg").show();
+                $("#checkClassSectionAvailMsg").show();
                 document.getElementById("btn").disabled = true;
             }
             if (data == 0)
             {
-                $("#checkClassSectionAvailMsg").hide(); 
+                $("#checkClassSectionAvailMsg").hide();
                 document.getElementById("btn").disabled = false;
             }
         }
     }
-    xmlhttp.open("POST", "/ProgressiveHostel/CheckClassSectionAvailablity?CLASS_ID="+CLASS_ID+"&SECTION_ID="+SECTION_ID , true);
+    xmlhttp.open("POST", "/ProgressiveHostel/CheckClassSectionAvailablity?CLASS_ID=" + CLASS_ID + "&SECTION_ID=" + SECTION_ID, true);
     xmlhttp.send();
 }
 
+
+function getClassSection() {
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    }
+    else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            document.getElementById('tbody').innerHTML = xmlhttp.responseText;
+
+        }
+    }
+    xmlhttp.open("POST", "/ProgressiveHostel/GetClassSection", true);
+    xmlhttp.send();
+}

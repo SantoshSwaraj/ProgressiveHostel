@@ -15,5 +15,6 @@ import java.util.ArrayList;
  */
 public interface ClassSectionDAO {
     public int addClassSection(ClassSectionBean classSectionBean);
-    public ArrayList getClassSections();    
+    public ArrayList getClassSections();
+    public ArrayList getSectionsByClassId(int CLASS_ID);
 }

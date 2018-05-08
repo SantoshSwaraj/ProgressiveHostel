@@ -6,14 +6,17 @@
 
 package ClassHostelMonthlyFee.Bean;
 
+import Classes.Bean.ClassBean;
+
 /**
  *
- * @author mishra
+ * @author Santosh Kushwaha
  */
 public class ClassHostelMonthlyFeeBean {
     private Integer CLASS_HOSTEL_MONTHLY_FEE_ID;
     private Integer CLASS_ID;
     private Integer FEE;
+    private ClassBean classBean;
 
     /**
      * @return the CLASS_HOSTEL_MONTHLY_FEE_ID
@@ -55,6 +58,20 @@ public class ClassHostelMonthlyFeeBean {
      */
     public void setFEE(Integer FEE) {
         this.FEE = FEE;
+    }
+
+    /**
+     * @return the classBean
+     */
+    public ClassBean getClassBean() {
+        return classBean;
+    }
+
+    /**
+     * @param classBean the classBean to set
+     */
+    public void setClassBean(ClassBean classBean) {
+        this.classBean = classBean;
     }
     
 }

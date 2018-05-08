@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package StudentParentDetails.Bean;
 
 import java.sql.Date;
@@ -14,6 +13,7 @@ import java.sql.Timestamp;
  * @author Santosh Kushwaha
  */
 public class StudentParentDetailsBean {
+
     private Integer STUDENT_PARENT_DETAILS_ID;
     private Integer STUDENT_ID;
     private String STUDENT_FATHER_NAME;
@@ -22,6 +22,8 @@ public class StudentParentDetailsBean {
     private String STUDENT_MOTHER_NAME;
     private String STUDENT_MOTHER_MOBILE_NUMBER;
     private String STUDENT_MOTHER_OCCUPATION;
+    private String STUDENT_GUARDIAN_NAME;
+    private String STUDENT_GUARDIAN_MOBILE;
     private Integer ENTRY_ID;
     private Date ENTRY_DATE;
     private Timestamp ENTRY_DATE_TIME;
@@ -76,7 +78,8 @@ public class StudentParentDetailsBean {
     }
 
     /**
-     * @param STUDENT_FATHER_MOBILE_NUMBER the STUDENT_FATHER_MOBILE_NUMBER to set
+     * @param STUDENT_FATHER_MOBILE_NUMBER the STUDENT_FATHER_MOBILE_NUMBER to
+     * set
      */
     public void setSTUDENT_FATHER_MOBILE_NUMBER(String STUDENT_FATHER_MOBILE_NUMBER) {
         this.STUDENT_FATHER_MOBILE_NUMBER = STUDENT_FATHER_MOBILE_NUMBER;
@@ -118,7 +121,8 @@ public class StudentParentDetailsBean {
     }
 
     /**
-     * @param STUDENT_MOTHER_MOBILE_NUMBER the STUDENT_MOTHER_MOBILE_NUMBER to set
+     * @param STUDENT_MOTHER_MOBILE_NUMBER the STUDENT_MOTHER_MOBILE_NUMBER to
+     * set
      */
     public void setSTUDENT_MOTHER_MOBILE_NUMBER(String STUDENT_MOTHER_MOBILE_NUMBER) {
         this.STUDENT_MOTHER_MOBILE_NUMBER = STUDENT_MOTHER_MOBILE_NUMBER;
@@ -136,6 +140,34 @@ public class StudentParentDetailsBean {
      */
     public void setSTUDENT_MOTHER_OCCUPATION(String STUDENT_MOTHER_OCCUPATION) {
         this.STUDENT_MOTHER_OCCUPATION = STUDENT_MOTHER_OCCUPATION;
+    }
+
+    /**
+     * @return the STUDENT_GUARDIAN_NAME
+     */
+    public String getSTUDENT_GUARDIAN_NAME() {
+        return STUDENT_GUARDIAN_NAME;
+    }
+
+    /**
+     * @param STUDENT_GUARDIAN_NAME the STUDENT_GUARDIAN_NAME to set
+     */
+    public void setSTUDENT_GUARDIAN_NAME(String STUDENT_GUARDIAN_NAME) {
+        this.STUDENT_GUARDIAN_NAME = STUDENT_GUARDIAN_NAME;
+    }
+
+    /**
+     * @return the STUDENT_GUARDIAN_MOBILE
+     */
+    public String getSTUDENT_GUARDIAN_MOBILE() {
+        return STUDENT_GUARDIAN_MOBILE;
+    }
+
+    /**
+     * @param STUDENT_GUARDIAN_MOBILE the STUDENT_GUARDIAN_MOBILE to set
+     */
+    public void setSTUDENT_GUARDIAN_MOBILE(String STUDENT_GUARDIAN_MOBILE) {
+        this.STUDENT_GUARDIAN_MOBILE = STUDENT_GUARDIAN_MOBILE;
     }
 
     /**
@@ -179,5 +211,4 @@ public class StudentParentDetailsBean {
     public void setENTRY_DATE_TIME(Timestamp ENTRY_DATE_TIME) {
         this.ENTRY_DATE_TIME = ENTRY_DATE_TIME;
     }
-        
 }

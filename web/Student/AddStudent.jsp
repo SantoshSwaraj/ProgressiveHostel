@@ -55,17 +55,17 @@
             }
         </style>
         <script>
-            function getAddressData(val)
+            function getAddressData()
             {
-                if (val == 1)
+                if (document.getElementById('SAME_ADDRESS').checked == true)
                 {
-                    alert("Are you sure your mailing address is same as home address");
+                    alert("Are you sure your correspondence address is same as permanent address");
                     document.getElementById('STUDENT_P_ADDRESS').value = document.getElementById('STUDENT_C_ADDRESS').value
                     document.getElementById('STUDENT_P_STATE').value = document.getElementById('STUDENT_C_STATE').value
                     document.getElementById('STUDENT_P_CITY').value = document.getElementById('STUDENT_C_CITY').value
                     document.getElementById('STUDENT_P_PIN_CODE').value = document.getElementById('STUDENT_C_PIN_CODE').value
                 }
-                if (val == 0)
+                else
                 {
                     document.getElementById('STUDENT_P_ADDRESS').value = "";
                     document.getElementById('STUDENT_P_STATE').value = "";
@@ -74,7 +74,7 @@
                 }
             }
         </script>
-
+        <script src="/ProgressiveHostel/utils.js"></script> 
     </head>
     <body class="smart-style-0">
         <%@include file="/IncludeFile/header.jsp"%>
@@ -111,18 +111,17 @@
                             <li class="disabled"><a data-toggle="tab">Parent's Details</a></li>
                             <li class="disabled"><a data-toggle="tab">Address Details</a></li> 
                             <li class="disabled"><a data-toggle="tab">Document Details</a></li>
-                            <li class="disabled"><a data-toggle="tab">One Time Charges</a></li>
-                                <%
-                                    }
-                                %>
-                                <%
-                                    if (i == 1) {
-                                %>
+
+                            <%
+                                }
+                            %>
+                            <%
+                                if (i == 1) {
+                            %>
                             <li class="disabled"><a data-toggle="tab">Basic Details</a></li>
                             <li class="active"><a href="#tab2" data-toggle="tab">Parent's Details</a></li>
                             <li class="disabled"><a data-toggle="tab">Address Details</a></li> 
                             <li class="disabled"><a data-toggle="tab">Document Details</a></li>
-                            <li class="disabled"><a data-toggle="tab">One Time Charges</a></li>
                                 <%
                                     }
                                 %>
@@ -133,7 +132,6 @@
                             <li class="disabled"><a data-toggle="tab">Parent's Details</a></li>
                             <li class="active"><a href="#tab3" data-toggle="tab">Address Details</a></li> 
                             <li class="disabled"><a data-toggle="tab">Document Details</a></li>
-                            <li class="disabled"><a data-toggle="tab">One Time Charges</a></li>
                                 <%
                                     }
                                 %>
@@ -144,18 +142,12 @@
                             <li class="disabled"><a data-toggle="tab">Parent's Details</a></li>
                             <li class="disabled"><a data-toggle="tab">Address Details</a></li> 
                             <li class="active"><a href="#tab5" data-toggle="tab">Document Details</a></li>
-                            <li class="disabled"><a data-toggle="tab">One Time Charges</a></li>
                                 <%
                                     }
                                 %>
                                 <%
                                     if (i == 4) {
                                 %>
-                            <li class="disabled"><a data-toggle="tab">Basic Details</a></li>
-                            <li class="disabled"><a data-toggle="tab">Parent's Details</a></li>
-                            <li class="disabled"><a data-toggle="tab">Address Details</a></li> 
-                            <li class="disabled"><a data-toggle="tab">Document Details</a></li>
-                            <li class="active"><a href="#tab5" data-toggle="tab">One Time Charges</a></li>
                                 <%
                                     }
                                 %>
@@ -185,7 +177,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label>&nbsp;Session <span style="color:red;">*</span></label>
-                                                <select class="form-control" name="SESSION_ID" id="SESSION_ID"> 
+                                                <select class="form-control" name="SESSION_ID" id="SESSION_ID" required=""> 
                                                     <option value="" selected="" disabled="">Select</option>
                                                     <%
                                                         SessionDAO sessionDAO = new SessionDAOImpl();
@@ -201,14 +193,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label>&nbsp;Student Name <span style="color:red;">*</span></label>
-                                                <input type="STUDENT_NAME" class="form-control" placeholder="" name="STUDENT_NAME" id="STUDENT_NAME">
+                                                <input type="STUDENT_NAME" class="form-control" placeholder="" name="STUDENT_NAME" id="STUDENT_NAME" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required="">
                                                 <!--<span class="help-block" id=""></span>-->
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-6">
                                                 <label>&nbsp;Class<span style="color:red;">*</span></label>
-                                                <select class="form-control" name="CLASS_ID" id="CLASS_ID">
+                                                <select class="form-control" name="CLASS_ID" id="CLASS_ID" required="" onchange="getSectionsByClassId(this.value)">
                                                     <option value="" selected="" disabled="">Select</option>
                                                     <%
                                                         ClassDAO classDAO = new ClassDAOImpl();
@@ -226,17 +218,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label>&nbsp;Section<span style="color:red;">*</span></label>
-                                                <select class="form-control" name="SECTION_ID" id="SECTION_ID">
-                                                    <option value="" selected="" disabled="">Select</option>
-                                                    <%
-                                                        SectionDAO sectionDAO = new SectionDAOImpl();
-                                                        ArrayList<SectionBean> sectionBeanList = sectionDAO.getSections();
-                                                        for (SectionBean sectionBean : sectionBeanList) {
-                                                    %>
-                                                    <option value="<%=sectionBean.getSECTION_ID()%>"><%=sectionBean.getSECTION_NAME()%></option>
-                                                    <%
-                                                        }
-                                                    %>
+                                                <select class="form-control" name="SECTION_ID" id="SECTION_ID" required="">
                                                 </select> 
                                                 <span class="help-block"></span>
                                             </div>
@@ -244,12 +226,12 @@
                                         <div class="form-group">
                                             <div class="col-md-6">
                                                 <label>&nbsp;Roll No <span style="color:red;">*</span></label>
-                                                <input type="number" class="form-control" placeholder="" name="STUDENT_ROLL_NO" id="STUDENT_ROLL_NO">
+                                                <input type="number" class="form-control" placeholder="" name="STUDENT_ROLL_NO" id="STUDENT_ROLL_NO" minlength="1" maxlength="3" onkeypress="checkNumber(event)" required="">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>&nbsp;Date Of Birth</label>
-                                                <input type="date" class="form-control" placeholder="" name="STUDENT_DOB" id="STUDENT_DOB">
+                                                <input type="date" class="form-control" placeholder="" name="STUDENT_DOB" id="STUDENT_DOB" required="">
                                                 <span class="help-block"></span>
                                             </div> 
                                         </div>
@@ -292,39 +274,52 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>&nbsp;Father's Name <span style="color:red;">*</span></label>
-                                                    <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="STUDENT_FATHER_NAME" id="STUDENT_FATHER_NAME" onkeypress="return checkAlpha(event)">
+                                                    <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="STUDENT_FATHER_NAME" id="STUDENT_FATHER_NAME" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required="">
                                                     <span class="help-block"></span>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>&nbsp;Mother's Name <span style="color:red;">*</span></label>
-                                                    <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="STUDENT_MOTHER_NAME" id="STUDENT_MOTHER_NAME" onkeypress="return checkAlpha(event)">
+                                                    <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="STUDENT_MOTHER_NAME" id="STUDENT_MOTHER_NAME" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" requiried="">
                                                     <span class="help-block"></span>
                                                 </div> 
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-6">
                                                     <label>&nbsp;Father Mobile Number</label>
-                                                    <input type="number" class="form-control" placeholder="" name="STUDENT_FATHER_MOBILE_NUMBER" id="STUDENT_FATHER_MOBILE_NUMBER">
+                                                    <input type="number" class="form-control" placeholder="" name="STUDENT_FATHER_MOBILE_NUMBER" id="STUDENT_FATHER_MOBILE_NUMBER" minlength="10" maxlength="11" onkeypress="checkNumber(event)" required="">
                                                     <span class="help-block"></span>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>&nbsp;Mother Mobile Number</label>
-                                                    <input type="number" class="form-control" placeholder="" name="STUDENT_MOTHER_MOBILE_NUMBER" id="STUDENT_MOTHER_MOBILE_NUMBER">
+                                                    <input type="number" class="form-control" placeholder="" name="STUDENT_MOTHER_MOBILE_NUMBER" id="STUDENT_MOTHER_MOBILE_NUMBER" minlength="10" maxlength="11" onkeypress="checkNumber(event)" required="">
                                                     <span class="help-block"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-6">
                                                     <label>&nbsp;Father Occupation</label>
-                                                    <input type="text" class="form-control" placeholder="" name="STUDENT_FATHER_OCCUPATION" id="STUDENT_FATHER_OCCUPATION" onkeypress="return checkAlpha(event)">
+                                                    <input type="text" class="form-control" placeholder="" name="STUDENT_FATHER_OCCUPATION" id="STUDENT_FATHER_OCCUPATION" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required="">
                                                     <span class="help-block"></span>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>&nbsp;Mother Occupation</label>
-                                                    <input type="text" class="form-control" placeholder="" name="STUDENT_MOTHER_OCCUPATION" id="STUDENT_MOTHER_OCCUPATION" onkeypress="return checkAlpha(event)">
+                                                    <input type="text" class="form-control" placeholder="" name="STUDENT_MOTHER_OCCUPATION" id="STUDENT_MOTHER_OCCUPATION" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required="">
                                                     <span class="help-block"></span>
                                                 </div> 
                                             </div> 
+
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label>&nbsp;Guardian Name</label>
+                                                    <input type="text" class="form-control" placeholder="" name="STUDENT_GUARDIAN_NAME" id="STUDENT_GUARDIAN_NAME" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)">
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>&nbsp;Guardian Moblie</label>
+                                                    <input type="text" class="form-control" placeholder="" name="STUDENT_GUARDIAN_MOBILE" id="STUDENT_GUARDIAN_MOBILE" minlength="10" maxlength="15" onkeypress="return checkNumber(event)">
+                                                    <span class="help-block"></span>
+                                                </div> 
+                                            </div>
 
                                             <div class="form-group">
                                                 <div class="col-md-8">
@@ -368,64 +363,65 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h1 style="color: #9e4f06; width: 100%; text-align: left; padding: 0px; font-weight: 700; font-family: initial;">Mailing Address</h1>
+                                                <h1 style="color: #9e4f06; width: 100%; text-align: left; padding: 0px; font-weight: 700; font-family: initial;">Correspondence Address</h1>
                                                 <div class="form-group">
                                                     <div class="col-md-6">
                                                         <label>&nbsp;Address <span style="color:red;">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_C_ADDRESS" id="STUDENT_C_ADDRESS">
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_C_ADDRESS" id="STUDENT_C_ADDRESS" minlength="3" maxlength="40" required="">
                                                         <span class="help-block"></span>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>&nbsp;State <span style="color:red;">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_C_STATE" id="STUDENT_C_STATE" onkeypress="return checkAlpha(event)">
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_C_STATE" id="STUDENT_C_STATE" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required="">
                                                         <span class="help-block"></span>
                                                     </div> 
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-md-6">
                                                         <label>&nbsp;City <span style="color:red;">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_C_CITY" id="STUDENT_C_CITY" onkeypress="return checkAlpha(event)">
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_C_CITY" id="STUDENT_C_CITY" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required="">
                                                         <span class="help-block"></span>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>&nbsp;Pin Code <span style="color:red;">*</span></label>
-                                                        <input type="number" class="form-control" placeholder="" name="STUDENT_C_PIN_CODE" id="STUDENT_C_PIN_CODE">
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_C_PIN_CODE" id="STUDENT_C_PIN_CODE" minlenth="6" maxlength="6" onkeypress="return checkNumber(event)" required=""> 
                                                         <span class="help-block"></span>
                                                     </div> 
                                                 </div> 
 
                                                 <div class="form-group">
                                                     <div style="margin-left: 17px;">
-                                                        <p>If mailing address same as home address then click Yes</p>
-                                                        <select name="SAME_ADDRESS" id="SAME_ADDRESS" onchange="getAddressData(this.value)">
-                                                            <option value="" selected="" disabled="">Select</option>
-                                                            <option value="1">Yes</option>
-                                                            <option value="0">No</option>
-                                                        </select>
-                                                        <h1 style="color: #9e4f06; width: 100%; text-align: left; padding: 0px; font-weight: 700; font-family: initial;">Home Address</h1>
+                                                        <p style="display: inline;">If correspondence address same as permanent address then Check Box</p>&nbsp;
+                                                        <input type="checkbox" id="SAME_ADDRESS" onclick="getAddressData()" style="display: inline;">
+                                                        <!--                                                        <select name="SAME_ADDRESS" id="SAME_ADDRESS" onchange="getAddressData(this.value)">
+                                                                                                                    <option value="" selected="" disabled="">Select</option>
+                                                                                                                    <option value="1">Yes</option>
+                                                                                                                    <option value="0">No</option>
+                                                                                                                </select>-->
+                                                        <h1 style="color: #9e4f06; width: 100%; text-align: left; padding: 0px; font-weight: 700; font-family: initial;">Permanent Address</h1>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <label>&nbsp;Address <span style="color:red;">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_P_ADDRESS" id="STUDENT_P_ADDRESS">
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_P_ADDRESS" id="STUDENT_P_ADDRESS" minlength="3" maxlength="40" required="">
                                                         <span class="help-block"></span>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>&nbsp;State <span style="color:red;">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_P_STATE" id="STUDENT_P_STATE" onkeypress="return checkAlpha(event)">
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_P_STATE" id="STUDENT_P_STATE" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required="">
                                                         <span class="help-block"></span>
                                                     </div> 
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-md-6">
                                                         <label>&nbsp;City <span style="color:red;">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_P_CITY" id="STUDENT_P_CITY" onkeypress="return checkAlpha(event)">
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_P_CITY" id="STUDENT_P_CITY" minlength="3" maxlength="40" onkeypress="return checkAlpha(event)" required=""> 
                                                         <span class="help-block"></span>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>&nbsp;Pin Code <span style="color:red;">*</span></label>
-                                                        <input type="number" class="form-control" placeholder="" name="STUDENT_P_PIN_CODE" id="STUDENT_P_PIN_CODE">
-                                                        <span class="help-block"></span>
+                                                        <input type="text" class="form-control" placeholder="" name="STUDENT_P_PIN_CODE" id="STUDENT_P_PIN_CODE" minlenth="6" maxlength="6" onkeypress="return checkNumber(event)" required="">
+                                                        <span class="help-block"></span> 
                                                     </div> 
                                                 </div>                    
                                                 <div class="form-group">
@@ -496,167 +492,99 @@
                                             </div>
 
 
-                                            <%
-                                                if (i == 4) {
-                                            %>
-                                            <div class="tab-pane active" id="tab6">
-                                                <%
-                                                } else {
-                                                %>
-                                                <div class="tab-pane" id="tab6">
-                                                    <%
-                                                        }
-                                                    %> 
-                                                    <form  id="jvalidate4" role="form" class="form-horizontal" action="/ProgressiveHostel/AddStudentOneTimeChargeDetails" method="post" autocomplete="off">
-                                                        <div class="container" id="messageContainerStudentDocumentDetails" style="margin-left: -32px;">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <%@include file="/IncludeFile/message.jsp"%> 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="col-md-6">
-                                                                <%
-                                                                    OneTimeChargesDAO OneTimeChargesDAO = new OneTimeChargesDAOImpl();
-                                                                    ArrayList<OneTimeChargeBean> oneTimeChargeBeanList = OneTimeChargesDAO.getOneTimeCharges();
-                                                                    int SECURITY_MONEY = 0, PACKECT_MONEY = 0;
-                                                                    for (OneTimeChargeBean oneTimeChargeBean : oneTimeChargeBeanList) {
-                                                                        if (oneTimeChargeBean.getCHARGE_NAME().equalsIgnoreCase("Securtiy Money")) {
-                                                                            SECURITY_MONEY = oneTimeChargeBean.getCHARGE_AMOUNT();
-
-                                                                        } else if (oneTimeChargeBean.getCHARGE_NAME().equalsIgnoreCase("Packet Money")) {
-                                                                            PACKECT_MONEY = oneTimeChargeBean.getCHARGE_AMOUNT();
-                                                                        }
-                                                                    }
-                                                                %>
-                                                                <label>&nbsp;Security Money <span style="color:red;">*</span></label>
-                                                                <input type="text" class="form-control" name="SECURITY_MONEY" id="SECURITY_MONEY" value="<%=SECURITY_MONEY%>" readonly=""> 
-                                                                <span class="help-block"></span>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>&nbsp;Packet Money<span style="color:red;">*</span></label>
-                                                                <input type="text" class="form-control"  name="PACKET_MONEY" id="PACKET_MONEY" value="<%=PACKECT_MONEY%>" readonly="">
-                                                                <span class="help-block"></span>
-                                                            </div> 
-                                                            <div class="col-md-6">
-                                                                <label>&nbsp;Total To Pay<span style="color:red;">*</span></label>
-                                                                <input type="text" class="form-control"  name="TOTAL_TO_PAY" id="TOTAL_TO_PAY" value="<%=SECURITY_MONEY + PACKECT_MONEY%>" readonly="">
-                                                                <span class="help-block"></span>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>&nbsp;Total Paid Amt<span style="color:red;">*</span></label>
-                                                                <input type="text" class="form-control"  name="TOTAL_PAID_AMT" id="TOTAL_PAID_AMT">
-                                                                <span class="help-block"></span>
-                                                            </div> 
-                                                        </div>    
-
-                                                        <div class="form-group">
-                                                            <div class="col-md-8">
-                                                            </div> 
-                                                            <div class="col-md-4">
-                                                                <button class="btn btn-warning" style="float: right;">Submit</button>
-                                                            </div> 
-                                                        </div> 
-
-                                                    </form>
-                                                </div>
 
 
 
+                                        </div>
+                                    </div>      
+                                </div>
+                            </div> 
+                        </div>  
+                    </div> 
 
 
-
-                                            </div>
-                                        </div>      
-                                    </div>
-                                </div> 
-                            </div>  
-                        </div> 
-
-
-                        <!-- NAV TAB ENDS-->
-                    </div>
+                    <!-- NAV TAB ENDS-->
                 </div>
-
-                <!-- END #MAIN CONTENT -->
             </div>
-            <!-- END #MAIN PANEL -->
-            <%@include file="/IncludeFile/mainfooter.jsp"%>
 
-            <div id="shortcut">
-                <ul>
-                    <li>
-                        <a href="#ajax/inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
-                    </li>
-                    <li>
-                        <a href="#ajax/calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
-                    </li>
-                    <li>
-                        <a href="#ajax/gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
-                    </li>
-                    <li>
-                        <a href="#ajax/invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
-                    </li>
-                    <li>
-                        <a href="#ajax/gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
-                    </li>
-                    <li>
-                        <a href="#ajax/profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- END SHORTCUT AREA -->
-            <script src="/ProgressiveHostel/assets/js/libs/jquery.min.js"></script> 
-            <script src="/ProgressiveHostel/assets/js/libs/jquery-ui.min.js"></script>
-            <!--================================================== -->
-            <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+            <!-- END #MAIN CONTENT -->
+        </div>
+        <!-- END #MAIN PANEL -->
+        <%@include file="/IncludeFile/mainfooter.jsp"%>
 
-            <script src="/ProgressiveHostel/assets/js/dropdown.js"></script> 
-            <script src="/ProgressiveHostel/assets/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
+        <div id="shortcut">
+            <ul>
+                <li>
+                    <a href="#ajax/inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
+                </li>
+                <li>
+                    <a href="#ajax/calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
+                </li>
+                <li>
+                    <a href="#ajax/gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
+                </li>
+                <li>
+                    <a href="#ajax/invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
+                </li>
+                <li>
+                    <a href="#ajax/gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
+                </li>
+                <li>
+                    <a href="#ajax/profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+                </li>
+            </ul>
+        </div>
+        <!-- END SHORTCUT AREA -->
+        <script src="/ProgressiveHostel/assets/js/libs/jquery.min.js"></script> 
+        <script src="/ProgressiveHostel/assets/js/libs/jquery-ui.min.js"></script>
+        <!--================================================== -->
+        <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
 
-            <!-- BOOTSTRAP JS -->
-            <script src="/ProgressiveHostel/assets/js/bootstrap/bootstrap.min.js"></script>
+        <script src="/ProgressiveHostel/assets/js/dropdown.js"></script> 
+        <script src="/ProgressiveHostel/assets/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
 
-            <!-- CUSTOM NOTIFICATION -->
-            <script src="/ProgressiveHostel/assets/js/notification/SmartNotification.min.js"></script>
+        <!-- BOOTSTRAP JS -->
+        <script src="/ProgressiveHostel/assets/js/bootstrap/bootstrap.min.js"></script>
 
-            <!-- JARVIS WIDGETS -->
-            <script src="/ProgressiveHostel/assets/js/smartwidgets/jarvis.widget.min.js"></script>
+        <!-- CUSTOM NOTIFICATION -->
+        <script src="/ProgressiveHostel/assets/js/notification/SmartNotification.min.js"></script>
 
-            <!-- EASY PIE CHARTS -->
-            <script src="/ProgressiveHostel/assets/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+        <!-- JARVIS WIDGETS -->
+        <script src="/ProgressiveHostel/assets/js/smartwidgets/jarvis.widget.min.js"></script>
 
-            <!-- SPARKLINES -->
-            <script src="/ProgressiveHostel/assets/js/plugin/sparkline/jquery.sparkline.min.js"></script>
+        <!-- EASY PIE CHARTS -->
+        <script src="/ProgressiveHostel/assets/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
 
-            <!-- JQUERY VALIDATE -->
-            <script src="/ProgressiveHostel/assets/js/plugin/jquery-validate/jquery.validate.min.js"></script>
+        <!-- SPARKLINES -->
+        <script src="/ProgressiveHostel/assets/js/plugin/sparkline/jquery.sparkline.min.js"></script>
 
-            <!-- JQUERY MASKED INPUT -->
-            <script src="/ProgressiveHostel/assets/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+        <!-- JQUERY VALIDATE -->
+        <script src="/ProgressiveHostel/assets/js/plugin/jquery-validate/jquery.validate.min.js"></script>
 
-            <!-- JQUERY SELECT2 INPUT -->
-            <script src="/ProgressiveHostel/assets/js/plugin/select2/select2.min.js"></script>
+        <!-- JQUERY MASKED INPUT -->
+        <script src="/ProgressiveHostel/assets/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
-            <!-- JQUERY UI + Bootstrap Slider -->
-            <script src="/ProgressiveHostel/assets/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+        <!-- JQUERY SELECT2 INPUT -->
+        <script src="/ProgressiveHostel/assets/js/plugin/select2/select2.min.js"></script>
 
-            <!-- browser msie issue fix -->
-            <script src="/ProgressiveHostel/assets/js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+        <!-- JQUERY UI + Bootstrap Slider -->
+        <script src="/ProgressiveHostel/assets/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
 
-            <!-- FastClick: For mobile devices: you can disable this in app.js -->
-            <script src="/ProgressiveHostel/assets/js/plugin/fastclick/fastclick.min.js"></script>
+        <!-- browser msie issue fix -->
+        <script src="/ProgressiveHostel/assets/js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
 
-            <!--[if IE 8]>
-                    <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
-            <![endif]-->
+        <!-- FastClick: For mobile devices: you can disable this in app.js -->
+        <script src="/ProgressiveHostel/assets/js/plugin/fastclick/fastclick.min.js"></script>
 
-            <!-- Demo purpose only -->
-            <script src="/ProgressiveHostel/assets/js/demo.min.js"></script>
-            <!-- SmartChat UI : plugin -->
-            <script src="/ProgressiveHostel/assets/js/smart-chat-ui/smart.chat.ui.min.js"></script>
-            <script src="/ProgressiveHostel/assets/js/smart-chat-ui/smart.chat.manager.min.js"></script>
+        <!--[if IE 8]>
+                <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+        <![endif]-->
+
+        <!-- Demo purpose only -->
+        <script src="/ProgressiveHostel/assets/js/demo.min.js"></script>
+        <!-- SmartChat UI : plugin -->
+        <script src="/ProgressiveHostel/assets/js/smart-chat-ui/smart.chat.ui.min.js"></script>
+        <script src="/ProgressiveHostel/assets/js/smart-chat-ui/smart.chat.manager.min.js"></script>
     </body>
 </html>
 <%

@@ -21,6 +21,8 @@ public class StudentOneTimeChargeDetailsBean {
     private Integer TOTAL_TO_PAY;
     private Integer TOTAL_PAID_AMT;
     private Integer BALANCE_AMT;
+    private Integer IS_PAID;
+    private Integer IS_REFUNDED;
     private Integer ENTRY_ID;
     private Date ENTRY_DATE;
     private Timestamp ENTRY_DATE_TIME; 
@@ -124,6 +126,34 @@ public class StudentOneTimeChargeDetailsBean {
     }
 
     /**
+     * @return the IS_PAID
+     */
+    public Integer getIS_PAID() {
+        return IS_PAID;
+    }
+
+    /**
+     * @param IS_PAID the IS_PAID to set
+     */
+    public void setIS_PAID(Integer IS_PAID) {
+        this.IS_PAID = IS_PAID;
+    }
+
+    /**
+     * @return the IS_REFUNDED
+     */
+    public Integer getIS_REFUNDED() {
+        return IS_REFUNDED;
+    }
+
+    /**
+     * @param IS_REFUNDED the IS_REFUNDED to set
+     */
+    public void setIS_REFUNDED(Integer IS_REFUNDED) {
+        this.IS_REFUNDED = IS_REFUNDED;
+    }
+
+    /**
      * @return the ENTRY_ID
      */
     public Integer getENTRY_ID() {
@@ -163,5 +193,9 @@ public class StudentOneTimeChargeDetailsBean {
      */
     public void setENTRY_DATE_TIME(Timestamp ENTRY_DATE_TIME) {
         this.ENTRY_DATE_TIME = ENTRY_DATE_TIME;
-    } 
+    }
+    
+    
+
+
 }

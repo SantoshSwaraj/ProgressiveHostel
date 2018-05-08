@@ -65,6 +65,7 @@
                 padding-bottom: 21px;
             }
         </style>
+         <script src="/ProgressiveHostel/utils.js"></script> 
     </head>
     <body class="smart-style-0">
         <%@include file="/IncludeFile/header.jsp"%>
@@ -118,7 +119,7 @@
                                     <div class="col-md-6">
                                         <input type="hidden" name="HOSTEL_MONTHLY_FEE_LEDGER_ID" id="HOSTEL_MONTHLY_FEE_LEDGER_ID" value="<%=hostelMonthlyFeeLedgerBean.getHOSTEL_MONTHLY_FEE_LEDGER_ID()%>">
                                         <label>&nbsp;Student Name <span style="color:red;">*</span></label>
-                                        <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="STUDENT_NAME" id="STUDENT_NAME" value="<%=studentMasterBean.getSTUDENT_NAME()%>">
+                                        <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="STUDENT_NAME" id="STUDENT_NAME" value="<%=studentMasterBean.getSTUDENT_NAME()%>" readonly="">
                                         <input type="hidden" class="form-control" name="STUDENT_ID" id="STUDENT_ID" value="<%=studentMasterBean.getSTUDENT_ID()%>">
                                         <span class="help-block"></span>
                                     </div>
@@ -129,12 +130,12 @@
                                             SessionDAO sessionDAO = new SessionDAOImpl();
                                             SessionBean sessionBean = sessionDAO.getSessionById(studentMasterBean.getSESSION_ID());
                                         %>
-                                        <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="SESSION" id="SESSION" value="<%=sessionBean.getSESSION()%>">
+                                        <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="SESSION" id="SESSION" value="<%=sessionBean.getSESSION()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="col-md-3">
                                         <label>&nbsp;Admission No<span style="color:red;">*</span></label>
-                                        <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="ADMISSION_NO" id="ADMISSION_NO" value="<%=studentMasterBean.getADMISSION_NO()%>">
+                                        <input type="text" style="text-transform: uppercase;" class="form-control" placeholder="" name="ADMISSION_NO" id="ADMISSION_NO" value="<%=studentMasterBean.getADMISSION_NO()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>     
                                 </div>
@@ -146,7 +147,7 @@
                                             ClassDAO classDAO = new ClassDAOImpl();
                                             ClassBean classBean = classDAO.getClassById(studentMasterBean.getCLASS_ID());
                                         %>
-                                        <input type="text" class="form-control" placeholder="" name="CLASS_NAME" id="CLASS_NAME" value="<%=classBean.getCLASS_NAME()%>">
+                                        <input type="text" class="form-control" placeholder="" name="CLASS_NAME" id="CLASS_NAME" value="<%=classBean.getCLASS_NAME()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="col-md-4">
@@ -156,29 +157,30 @@
                                             SectionDAO sectionDAO = new SectionDAOImpl();
                                             SectionBean sectionBean = sectionDAO.getSectionById(studentMasterBean.getSECTION_ID());
                                         %>
-                                        <input type="text" class="form-control" placeholder="" name="SECTION" id="SECTION" value="<%=sectionBean.getSECTION_NAME()%>">
+                                        <input type="text" class="form-control" placeholder="" name="SECTION" id="SECTION" value="<%=sectionBean.getSECTION_NAME()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <label>&nbsp;Roll No</label>
-                                        <input type="text" class="form-control" placeholder="" name="STUDENT_ROLL_NO" id="STUDENT_ROLL_NO" value="<%=studentMasterBean.getSTUDENT_ROLL_NO()%>">
+                                        <input type="text" class="form-control" placeholder="" name="STUDENT_ROLL_NO" id="STUDENT_ROLL_NO" value="<%=studentMasterBean.getSTUDENT_ROLL_NO()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
+                                        <input type="hidden" name="BILL_NO" id="BILL_NO" value="<%=hostelMonthlyFeeLedgerBean.getBILL_NO()%>">
                                         <label>&nbsp;Bill Month</label>
                                         <input type="hidden" name="BILL_MONTH_ID" id="BILL_MONTH_ID" value="<%=hostelMonthlyFeeLedgerBean.getBILL_MONTH_ID()%>">
                                         <%
                                             MonthDAO monthDAO = new MonthDAOImpl();
                                             MonthBean monthBean = monthDAO.getMonthById(hostelMonthlyFeeLedgerBean.getBILL_MONTH_ID());
                                         %>
-                                        <input type="text" class="form-control" placeholder="" name="BILL_MONTH" id="BILL_MONTH" value="<%=monthBean.getMONTH()%>">
+                                        <input type="text" class="form-control" placeholder="" name="BILL_MONTH" id="BILL_MONTH" value="<%=monthBean.getMONTH()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label>&nbsp;Bill Year</label>
-                                        <input type="text" class="form-control" placeholder="" name="BILL_YEAR" id="BILL_YEAR" value="<%=hostelMonthlyFeeLedgerBean.getBILL_YEAR()%>">
+                                        <input type="text" class="form-control" placeholder="" name="BILL_YEAR" id="BILL_YEAR" value="<%=hostelMonthlyFeeLedgerBean.getBILL_YEAR()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div> 
                                 </div>
@@ -190,12 +192,12 @@
                                             ClassHostelMonthlyFeeDAO classHostelMonthlyFeeDAO = new ClassHostelMonthlyFeeDAOImpl();
                                             ClassHostelMonthlyFeeBean classHostelMonthlyFeeBean = classHostelMonthlyFeeDAO.getClassHostelMonthlyFeeByClassId(hostelMonthlyFeeLedgerBean.getCLASS_ID());
                                         %>
-                                        <input type="text" class="form-control" placeholder="" name="CURRENT_MONTH_FEE" id="CURRENT_MONTH_FEE" value="<%=classHostelMonthlyFeeBean.getFEE()%>">
+                                        <input type="text" class="form-control" placeholder="" name="CURRENT_MONTH_FEE" id="CURRENT_MONTH_FEE" value="<%=classHostelMonthlyFeeBean.getFEE()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label>&nbsp;Arrears Amount</label>
-                                        <input type="text" class="form-control" placeholder="" name="ARREARS_AMT" id="ARREARS_AMT" value="<%=hostelMonthlyFeeLedgerBean.getBALANCE_AMT()%>">
+                                        <input type="text" class="form-control" placeholder="" name="ARREARS_AMT" id="ARREARS_AMT" value="<%=hostelMonthlyFeeLedgerBean.getBALANCE_AMT()%>" readonly="">
                                         <span class="help-block"></span>
                                     </div> 
                                 </div>
@@ -206,13 +208,13 @@
                                         <%
                                             int TOTAL_TO_PAY = classHostelMonthlyFeeBean.getFEE() + hostelMonthlyFeeLedgerBean.getBALANCE_AMT();
                                         %>
-                                        <input type="text" class="form-control" placeholder="" name="TOTAL_TO_PAY" id="TOTAL_TO_PAY" value="<%=TOTAL_TO_PAY%>">
+                                        <input type="text" class="form-control" placeholder="" name="TOTAL_TO_PAY" id="TOTAL_TO_PAY" value="<%=TOTAL_TO_PAY%>" readonly="">
                                         <span class="help-block"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label>&nbsp;Total Paid Amount</label>
-                                        <input type="text" class="form-control" placeholder="" name="TOTAL_PAID_AMT" id="TOTAL_PAID_AMT">
-                                        <span class="help-block"></span>
+                                        <input type="text" class="form-control" placeholder="" name="TOTAL_PAID_AMT" id="TOTAL_PAID_AMT" onblur="checkPaidAmt(this.value)"> 
+                                        <span class="help-block" id="msgCheckTotalPaid" style="color: red;"></span>
                                     </div> 
                                 </div>
 
@@ -220,7 +222,7 @@
                                     <div class="col-md-8">
                                     </div> 
                                     <div class="col-md-4">
-                                        <button class="btn btn-warning" style="float: right;">Submit</button>
+                                        <button class="btn btn-warning" style="float: right;" id="btn">Submit</button>
                                     </div> 
                                 </div> 
                             </form>

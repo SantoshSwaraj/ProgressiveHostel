@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package HostelMonthlyFeeLedger.Bean;
 
+import Classes.Bean.ClassBean;
+import Section.Bean.SectionBean;
+import Session.Bean.SessionBean;
+import StudentMaster.Bean.StudentMasterBean;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -14,11 +17,13 @@ import java.sql.Timestamp;
  * @author Santosh Kushwaha
  */
 public class HostelMonthlyFeeLedgerBean {
+
     private Integer HOSTEL_MONTHLY_FEE_LEDGER_ID;
     private Integer STUDENT_ID;
     private String ADMISSION_NO;
     private Integer CLASS_ID;
     private Integer SECTION_ID;
+    private String BILL_NO;
     private Integer BILL_MONTH_ID;
     private String BILL_YEAR;
     private Integer CURRENT_MONTH_FEE;
@@ -26,10 +31,14 @@ public class HostelMonthlyFeeLedgerBean {
     private Integer TOTAL_TO_PAY;
     private Integer TOTAL_PAID_AMT;
     private Integer BALANCE_AMT;
+    private Integer IS_PAID_ONCE;
     private Integer ENTRY_ID;
-    private Integer FLAG;
     private Date ENTRY_DATE;
     private Timestamp ENTRY_DATE_TIME;
+    private StudentMasterBean studentMasterBean;
+    private SessionBean sessionBean;
+    private ClassBean classBean;
+    private SectionBean sectionBean;
 
     /**
      * @return the HOSTEL_MONTHLY_FEE_LEDGER_ID
@@ -99,6 +108,20 @@ public class HostelMonthlyFeeLedgerBean {
      */
     public void setSECTION_ID(Integer SECTION_ID) {
         this.SECTION_ID = SECTION_ID;
+    }
+
+    /**
+     * @return the BILL_NO
+     */
+    public String getBILL_NO() {
+        return BILL_NO;
+    }
+
+    /**
+     * @param BILL_NO the BILL_NO to set
+     */
+    public void setBILL_NO(String BILL_NO) {
+        this.BILL_NO = BILL_NO;
     }
 
     /**
@@ -200,6 +223,20 @@ public class HostelMonthlyFeeLedgerBean {
     }
 
     /**
+     * @return the IS_PAID_ONCE
+     */
+    public Integer getIS_PAID_ONCE() {
+        return IS_PAID_ONCE;
+    }
+
+    /**
+     * @param IS_PAID_ONCE the IS_PAID_ONCE to set
+     */
+    public void setIS_PAID_ONCE(Integer IS_PAID_ONCE) {
+        this.IS_PAID_ONCE = IS_PAID_ONCE;
+    }
+
+    /**
      * @return the ENTRY_ID
      */
     public Integer getENTRY_ID() {
@@ -211,20 +248,6 @@ public class HostelMonthlyFeeLedgerBean {
      */
     public void setENTRY_ID(Integer ENTRY_ID) {
         this.ENTRY_ID = ENTRY_ID;
-    }
-
-    /**
-     * @return the FLAG
-     */
-    public Integer getFLAG() {
-        return FLAG;
-    }
-
-    /**
-     * @param FLAG the FLAG to set
-     */
-    public void setFLAG(Integer FLAG) {
-        this.FLAG = FLAG;
     }
 
     /**
@@ -255,6 +278,60 @@ public class HostelMonthlyFeeLedgerBean {
         this.ENTRY_DATE_TIME = ENTRY_DATE_TIME;
     }
 
-    
+    /**
+     * @return the studentMasterBean
+     */
+    public StudentMasterBean getStudentMasterBean() {
+        return studentMasterBean;
+    }
+
+    /**
+     * @param studentMasterBean the studentMasterBean to set
+     */
+    public void setStudentMasterBean(StudentMasterBean studentMasterBean) {
+        this.studentMasterBean = studentMasterBean;
+    }
+
+    /**
+     * @return the sessionBean
+     */
+    public SessionBean getSessionBean() {
+        return sessionBean;
+    }
+
+    /**
+     * @param sessionBean the sessionBean to set
+     */
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
+    }
+
+    /**
+     * @return the classBean
+     */
+    public ClassBean getClassBean() {
+        return classBean;
+    }
+
+    /**
+     * @param classBean the classBean to set
+     */
+    public void setClassBean(ClassBean classBean) {
+        this.classBean = classBean;
+    }
+
+    /**
+     * @return the sectionBean
+     */
+    public SectionBean getSectionBean() {
+        return sectionBean;
+    }
+
+    /**
+     * @param sectionBean the sectionBean to set
+     */
+    public void setSectionBean(SectionBean sectionBean) {
+        this.sectionBean = sectionBean;
+    }
 
 }

@@ -14,4 +14,5 @@ import StudentOneTimeChargeDetails.Bean.StudentOneTimeChargeDetailsBean;
 public interface StudentOneTimeChargeDetailsDAO {
 
     public int addStudentOneTimeChargeDetails(StudentOneTimeChargeDetailsBean studentOneTimeChargeDetailsBean);
+    public StudentOneTimeChargeDetailsBean getStudentOneTimeChargeDetailsByStudentId(int STUDENT_ID);
 }

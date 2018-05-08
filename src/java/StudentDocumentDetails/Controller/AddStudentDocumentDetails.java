@@ -92,7 +92,7 @@ public class AddStudentDocumentDetails extends HttpServlet {
 
                 if (i > 0) {
                     session1.setAttribute("msg", "Student All Details Added Successfully");
-                    response.sendRedirect("/ProgressiveHostel/Student/AddStudent.jsp?id=4");
+                    response.sendRedirect("/ProgressiveHostel/Student/NewStudentAdmissionSlip.jsp");
 
                 } else {
                     session1.setAttribute("wmsg", "Unable to Add Student Documents Details");

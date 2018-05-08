@@ -29,7 +29,7 @@ CREATE TABLE `class_hostel_monthly_fee` (
   `CLASS_ID` int(2) DEFAULT NULL,
   `FEE` int(10) DEFAULT NULL,
   PRIMARY KEY (`CLASS_HOSTEL_MONTHLY_FEE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `class_hostel_monthly_fee` (
 
 LOCK TABLES `class_hostel_monthly_fee` WRITE;
 /*!40000 ALTER TABLE `class_hostel_monthly_fee` DISABLE KEYS */;
-INSERT INTO `class_hostel_monthly_fee` VALUES (1,15,5000),(2,15,5000),(3,15,5000),(4,15,5000),(5,19,5000);
+INSERT INTO `class_hostel_monthly_fee` VALUES (1,1,5000),(2,2,5000),(3,3,5000),(4,4,5400),(5,5,5400),(6,8,600000);
 /*!40000 ALTER TABLE `class_hostel_monthly_fee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +54,7 @@ CREATE TABLE `class_section` (
   `CLASS_ID` int(2) DEFAULT NULL,
   `SECTION_ID` int(2) DEFAULT NULL,
   PRIMARY KEY (`CLASS_SECTION_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `class_section` (
 
 LOCK TABLES `class_section` WRITE;
 /*!40000 ALTER TABLE `class_section` DISABLE KEYS */;
-INSERT INTO `class_section` VALUES (1,15,6),(2,15,7),(3,15,6),(4,15,6),(5,15,6),(6,19,6),(7,19,8);
+INSERT INTO `class_section` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4);
 /*!40000 ALTER TABLE `class_section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ CREATE TABLE `classes` (
   `CLASS_NAME` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`CLASS_ID`),
   UNIQUE KEY `CLASS_NAME` (`CLASS_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,8 +88,37 @@ CREATE TABLE `classes` (
 
 LOCK TABLES `classes` WRITE;
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-INSERT INTO `classes` VALUES (19,'Daycare1'),(16,'KG 1'),(17,'KG 2'),(15,'Play Group'),(18,'prep');
+INSERT INTO `classes` VALUES (4,'1'),(13,'10'),(5,'2'),(6,'3'),(7,'4'),(8,'5'),(9,'6'),(10,'7'),(11,'8'),(12,'9'),(2,'KG 1'),(3,'KG 2'),(1,'PLAY GROUP');
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `collection`
+--
+
+DROP TABLE IF EXISTS `collection`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collection` (
+  `COLLECTION_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `STUDENT_ID` int(11) DEFAULT NULL,
+  `BILL_NO` varchar(45) DEFAULT NULL,
+  `PAID_AMT` int(8) DEFAULT NULL,
+  `ENTRY_ID` int(8) DEFAULT NULL,
+  `ENTRY_DATE` date DEFAULT NULL,
+  `ENTRY_DATE_TIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`COLLECTION_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collection`
+--
+
+LOCK TABLES `collection` WRITE;
+/*!40000 ALTER TABLE `collection` DISABLE KEYS */;
+INSERT INTO `collection` VALUES (1,1,'1/5/2018',7500,1,'2018-05-05','2018-05-05 12:43:01'),(2,1,'1/5/2018',1500,1,'2018-05-05','2018-05-05 12:50:31'),(3,1,'1/5/2018',1000,1,'2018-05-05','2018-05-05 12:52:06');
+/*!40000 ALTER TABLE `collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -105,6 +134,7 @@ CREATE TABLE `hostel_monthly_fee_ledger` (
   `ADMISSION_NO` varchar(20) DEFAULT NULL,
   `CLASS_ID` int(2) DEFAULT NULL,
   `SECTION_ID` int(2) DEFAULT NULL,
+  `BILL_NO` varchar(25) DEFAULT NULL,
   `BILL_MONTH_ID` int(2) DEFAULT NULL,
   `BILL_YEAR` varchar(4) DEFAULT NULL,
   `CURRENT_MONTH_FEE` int(10) DEFAULT '0',
@@ -112,12 +142,12 @@ CREATE TABLE `hostel_monthly_fee_ledger` (
   `TOTAL_TO_PAY` int(10) DEFAULT '0',
   `TOTAL_PAID_AMT` int(10) DEFAULT '0',
   `BALANCE_AMT` int(10) DEFAULT '0',
+  `IS_PAID_ONCE` int(1) DEFAULT '0',
   `ENTRY_ID` int(8) DEFAULT NULL,
-  `FLAG` int(1) DEFAULT '0',
   `ENTRY_DATE` date DEFAULT NULL,
   `ENTRY_DATE_TIME` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`HOSTEL_MONTHLY_FEE_LEDGER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +156,7 @@ CREATE TABLE `hostel_monthly_fee_ledger` (
 
 LOCK TABLES `hostel_monthly_fee_ledger` WRITE;
 /*!40000 ALTER TABLE `hostel_monthly_fee_ledger` DISABLE KEYS */;
-INSERT INTO `hostel_monthly_fee_ledger` VALUES (8,40,'0001-2018',15,6,4,'2018',5000,4000,9000,7000,2000,1,1,'2018-04-26','2018-04-26 07:06:39'),(9,40,'0001-2018',15,6,5,'2018',5000,2000,7000,5000,2000,1,1,'2018-04-26','2018-04-26 11:31:47'),(10,41,'0001-2020',19,9,4,'2018',5000,9000,14000,100,13900,1,1,'2018-04-26','2018-04-26 12:19:37'),(11,41,'0001-2020',19,9,5,'2018',5000,13900,18900,900,18000,1,1,'2018-04-26','2018-04-26 12:27:16');
+INSERT INTO `hostel_monthly_fee_ledger` VALUES (1,1,'0001-2018',1,1,'1/5/2018',5,'2018',5000,5000,5000,1000,4000,1,1,'2018-05-05','2018-05-05 12:52:06');
 /*!40000 ALTER TABLE `hostel_monthly_fee_ledger` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,7 +196,7 @@ CREATE TABLE `one_time_charges` (
   `CHARGE_NAME` varchar(45) DEFAULT NULL,
   `CHARGE_AMOUNT` int(10) DEFAULT NULL,
   PRIMARY KEY (`ONE_TIME_CHARGE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +205,7 @@ CREATE TABLE `one_time_charges` (
 
 LOCK TABLES `one_time_charges` WRITE;
 /*!40000 ALTER TABLE `one_time_charges` DISABLE KEYS */;
-INSERT INTO `one_time_charges` VALUES (1,'Securtiy Money',8000),(2,'Packet Money',1000);
+INSERT INTO `one_time_charges` VALUES (1,'Securtiy Money',8000),(2,'Packet Money',1000),(3,'Securtiy Money',50000);
 /*!40000 ALTER TABLE `one_time_charges` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +220,7 @@ CREATE TABLE `section` (
   `SECTION_ID` int(2) NOT NULL AUTO_INCREMENT,
   `SECTION_NAME` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`SECTION_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +229,7 @@ CREATE TABLE `section` (
 
 LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` VALUES (6,'A'),(7,'B'),(8,'C'),(9,'D');
+INSERT INTO `section` VALUES (1,'A'),(2,'B'),(3,'C'),(4,'D'),(5,'E'),(6,'5');
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +279,7 @@ CREATE TABLE `student_address_details` (
   `ENTRY_DATE` date DEFAULT NULL,
   `ENTRY_DATE_TIME` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`STUDENT_ADDRESS_DETAILS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,7 +288,7 @@ CREATE TABLE `student_address_details` (
 
 LOCK TABLES `student_address_details` WRITE;
 /*!40000 ALTER TABLE `student_address_details` DISABLE KEYS */;
-INSERT INTO `student_address_details` VALUES (39,40,'Check Post , Chas','Jharkhand','Bokaro','827013','Check Post , Chas','Jharkhand','Bokaro','827013',1,'2018-04-26','2018-04-26 06:50:16'),(40,41,'Check Post , Chas','Jharkhand','Bokaro','827013','Check Post , Chas','Jharkhand','Bokaro','827013',1,'2018-04-26','2018-04-26 11:47:38');
+INSERT INTO `student_address_details` VALUES (1,1,'Check Post , Chas','Jharkhand','Bokaro','827013','Check Post , Chas','Jharkhand','Bokaro','827013',1,'2018-05-05','2018-05-05 12:30:09'),(2,2,'jgg','gjg','jgkjg','656311','jgg','gjg','jgkjg','656311',1,'2018-05-05','2018-05-05 13:49:49');
 /*!40000 ALTER TABLE `student_address_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +309,7 @@ CREATE TABLE `student_document_details` (
   `ENTRY_DATE` date DEFAULT NULL,
   `ENTRY_DATE_TIME` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`STUDENT_DOCUMENT_DETAILS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +318,7 @@ CREATE TABLE `student_document_details` (
 
 LOCK TABLES `student_document_details` WRITE;
 /*!40000 ALTER TABLE `student_document_details` DISABLE KEYS */;
-INSERT INTO `student_document_details` VALUES (38,40,'1524725473299@Photo.jpeg','1524725473307@Aadhar.jpeg','1524725473314@SchoolId.jpeg',1,'2018-04-26','2018-04-26 06:50:16'),(39,41,'','','',1,'2018-04-26','2018-04-26 11:47:38');
+INSERT INTO `student_document_details` VALUES (1,1,'','','',1,'2018-05-05','2018-05-05 12:30:09'),(2,2,'1525528262876@Photo.jpg','1525528262939@Aadhar.jpg','1525528263001@SchoolId.jpg',1,'2018-05-05','2018-05-05 13:49:49');
 /*!40000 ALTER TABLE `student_document_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +343,7 @@ CREATE TABLE `student_master` (
   `ENTRY_DATE` date DEFAULT NULL,
   `ENTRY_DATE_TIME` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`STUDENT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,7 +352,7 @@ CREATE TABLE `student_master` (
 
 LOCK TABLES `student_master` WRITE;
 /*!40000 ALTER TABLE `student_master` DISABLE KEYS */;
-INSERT INTO `student_master` VALUES (40,'Santosh',1,15,6,1,'2017-01-06','0001-2018',1,1,'2018-04-26','2018-04-26 06:50:16'),(41,'Ankit',1,19,9,1,'2018-04-01','0001-2020',1,1,'2018-04-26','2018-04-26 11:47:38');
+INSERT INTO `student_master` VALUES (1,'TestA',1,1,1,1,'2015-06-02','0001-2018',1,1,'2018-05-05','2018-05-05 12:30:09'),(2,'tanay',1,1,2,12455,'2015-03-05','0002-2018',1,1,'2018-05-05','2018-05-05 13:49:49');
 /*!40000 ALTER TABLE `student_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,11 +371,13 @@ CREATE TABLE `student_one_time_charge_details` (
   `TOTAL_TO_PAY` int(8) DEFAULT NULL,
   `TOTAL_PAID_AMT` int(8) DEFAULT NULL,
   `BALANCE_AMT` int(8) DEFAULT NULL,
+  `IS_PAID` int(1) DEFAULT '0',
+  `IS_REFUNDED` int(1) DEFAULT '0',
   `ENTRY_ID` int(8) DEFAULT NULL,
   `ENTRY_DATE` date DEFAULT NULL,
   `ENTRY_DATE_TIME` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`STUDENT_ONE_TIME_CHARGE_DETAILS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +386,7 @@ CREATE TABLE `student_one_time_charge_details` (
 
 LOCK TABLES `student_one_time_charge_details` WRITE;
 /*!40000 ALTER TABLE `student_one_time_charge_details` DISABLE KEYS */;
-INSERT INTO `student_one_time_charge_details` VALUES (23,40,8000,1000,9000,5000,4000,1,'2018-04-26','2018-04-26 06:50:16'),(24,41,8000,1000,9000,0,9000,1,'2018-04-26','2018-04-26 11:47:38');
+INSERT INTO `student_one_time_charge_details` VALUES (1,1,8000,1000,9000,7500,1500,1,0,1,'2018-05-05','2018-05-05 12:43:01');
 /*!40000 ALTER TABLE `student_one_time_charge_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -374,11 +406,13 @@ CREATE TABLE `student_parent_details` (
   `STUDENT_MOTHER_NAME` varchar(45) DEFAULT NULL,
   `STUDENT_MOTHER_MOBILE_NUMBER` varchar(45) DEFAULT NULL,
   `STUDENT_MOTHER_OCCUPATION` varchar(45) DEFAULT NULL,
+  `STUDENT_GUARDIAN_NAME` varchar(45) DEFAULT NULL,
+  `STUDENT_GUARDIAN_MOBILE` varchar(45) DEFAULT NULL,
   `ENTRY_ID` int(8) DEFAULT NULL,
   `ENTRY_DATE` date DEFAULT NULL,
   `ENTRY_DATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`STUDENT_PARENT_DETAILS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,7 +421,7 @@ CREATE TABLE `student_parent_details` (
 
 LOCK TABLES `student_parent_details` WRITE;
 /*!40000 ALTER TABLE `student_parent_details` DISABLE KEYS */;
-INSERT INTO `student_parent_details` VALUES (39,40,'Abc','1478523690','Farmer','pqr','3698521470','HouseWife',1,'2018-04-26','2018-04-26 06:50:52'),(40,41,'Abc','1478523690','Fdd','PQr','369852147','ldopd',1,'2018-04-26','2018-04-26 11:48:07');
+INSERT INTO `student_parent_details` VALUES (1,1,'TestAf','9874563210','Farmer','testam','1478523690','HouseWife',NULL,NULL,1,'2018-05-05','2018-05-05 12:30:57'),(2,2,'xyz','8787878787','jhgjgkjgkj','abc','787878787878','gjkgkjgbkj','jgkjbkjk',NULL,1,'2018-05-05','2018-05-05 13:50:16');
 /*!40000 ALTER TABLE `student_parent_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -410,7 +444,7 @@ CREATE TABLE `user` (
   `STATUS` int(2) DEFAULT NULL,
   `ENTRY_DATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,17 +453,33 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'Santosh Kushwaha','9534138753','santosh@courses18.com','santosh@123','santosh@123',1,1,'2018-04-18 18:30:00');
+INSERT INTO `user` VALUES (5,1,'Santosh Kushwaha','9534138753','santosh@courses18.com','santosh@123','12345',1,1,'2018-05-05 10:42:57');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'progressive_hostel'
+-- Table structure for table `user_type`
 --
 
+DROP TABLE IF EXISTS `user_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_type` (
+  `USER_TYPE_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `USER_TYPE` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`USER_TYPE_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'progressive_hostel'
+-- Dumping data for table `user_type`
 --
+
+LOCK TABLES `user_type` WRITE;
+/*!40000 ALTER TABLE `user_type` DISABLE KEYS */;
+INSERT INTO `user_type` VALUES (1,'ADMIN'),(2,'WARDEN'),(3,'ACCOUNTS');
+/*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -440,4 +490,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-26 18:04:49
+-- Dump completed on 2018-05-08 17:18:13
